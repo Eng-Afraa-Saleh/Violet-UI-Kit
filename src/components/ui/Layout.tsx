@@ -1,4 +1,4 @@
- import type { BaseProps, CardProps } from '../../types';
+ import type { BaseProps, CardProps, GridProps } from '../../types';
 import { cn } from '../../utils';
  
 
@@ -29,11 +29,7 @@ export const Container = ({ className, children, ...props }: BaseProps) => (
   </div>
 );
 
-// --- Grid ---
-interface GridProps extends BaseProps {
-  cols?: 1 | 2 | 3 | 4 | 5 | 6 | 12;
-  gap?: 2 | 4 | 6 | 8;
-}
+
 export const Grid = ({ className, children, cols = 1, gap = 4, ...props }: GridProps) => {
   const colStyles = {
     1: 'grid-cols-1',

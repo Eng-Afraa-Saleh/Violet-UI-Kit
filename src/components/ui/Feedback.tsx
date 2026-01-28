@@ -1,16 +1,9 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
  import { X, CheckCircle, AlertTriangle, Info, AlertOctagon } from 'lucide-react';
  import { cn } from '../../utils';
+import type { AlertProps, DialogProps } from '../../types';
 
 // --- Alert ---
-interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
-  className?: string;
-  children?: React.ReactNode;
-  variant?: 'info' | 'success' | 'warning' | 'error';
-  title?: string;
-  icon?: boolean;
-}
-
 export const Alert = ({ className, variant = 'info', title, icon = true, children, ...props }: AlertProps) => {
   const styles = {
     info: 'bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800',
@@ -39,15 +32,7 @@ export const Alert = ({ className, variant = 'info', title, icon = true, childre
   );
 };
 
-// --- Dialog / Modal ---
-interface DialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title?: string;
-  children?: React.ReactNode;
-  footer?: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg';
-}
+
 
 export const Dialog = ({ isOpen, onClose, title, children, footer, size = 'md' }: DialogProps) => {
   useEffect(() => {

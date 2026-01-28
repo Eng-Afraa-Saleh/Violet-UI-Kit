@@ -3,14 +3,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button } from './Button';
 import {  Avatar, Badge } from './Core';
 import { cn } from '../../utils';
+import type { MobileMenuProps, MobileMenuToggleProps, NavbarProps, NavLinkProps, NotificationItem } from '../../types';
 
-interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
-  sticky?: boolean;
-  glass?: boolean;
-  isBordered?: boolean;
-  className?: string;
-  children?: React.ReactNode;
-}
+
 
 export const Navbar = ({ 
   className, 
@@ -59,12 +54,7 @@ export const NavMenu = ({ className, children, ...props }: React.HTMLAttributes<
   </div>
 );
 
-interface NavLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  active?: boolean;
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-}
+
 
 export const NavLink = ({ className, children, active, ...props }: NavLinkProps) => (
   <a
@@ -79,11 +69,7 @@ export const NavLink = ({ className, children, active, ...props }: NavLinkProps)
   </a>
 );
 
-interface MobileMenuToggleProps {
-  isOpen: boolean;
-  onToggle: () => void;
-  className?: string;
-}
+
 
 export const MobileMenuToggle = ({ isOpen, onToggle, className }: MobileMenuToggleProps) => (
   <div className={cn("lg:hidden", className)}>
@@ -93,11 +79,7 @@ export const MobileMenuToggle = ({ isOpen, onToggle, className }: MobileMenuTogg
   </div>
 );
 
-interface MobileMenuProps extends React.HTMLAttributes<HTMLDivElement> {
-  isOpen: boolean;
-  className?: string;
-  children?: React.ReactNode;
-}
+
 
 export const MobileMenu = ({ isOpen, children, className, ...props }: MobileMenuProps) => (
   <div
@@ -176,15 +158,7 @@ export const NavDropdown = ({ label, children }: { label: React.ReactNode, child
 
 // --- Notification Component ---
 
-interface NotificationItem {
-  id: string;
-  title: string;
-  message: string;
-  time: string;
-  unread: boolean;
-  avatar?: string;
-  type: 'info' | 'success' | 'alert';
-}
+ 
 
 export const NavNotification = ({ 
   className 

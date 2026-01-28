@@ -2,38 +2,9 @@ import React from 'react';
 import { Check, Clock, AlertCircle, Star, MapPin,  User, MessageSquare } from 'lucide-react';
 import { cn } from '../../utils';
 import { Badge } from './Core';
+import type { TimelineItem, TimelineItemType, TimelineProps } from '../../types';
 
-export type TimelineItemType = 'default' | 'success' | 'warning' | 'error' | 'info' | 'primary';
 
-export interface TimelineItem {
-  id: string | number;
-  title: string;
-  description?: string;
-  timestamp: string;
-  time?: string;
-  type?: TimelineItemType;
-  icon?: React.ReactNode;
-  color?: string;
-  avatar?: string;
-  user?: string;
-  tags?: string[];
-  action?: React.ReactNode;
-  completed?: boolean;
-  meta?: Record<string, any>;
-}
-
-export interface TimelineProps {
-  items: TimelineItem[];
-  mode?: 'default' | 'compact' | 'detailed';
-  direction?: 'vertical' | 'horizontal';
-  align?: 'left' | 'right' | 'alternate';
-  showConnectors?: boolean;
-  showDates?: boolean;
-  animate?: boolean;
-  className?: string;
-  itemClassName?: string;
-  onItemClick?: (item: TimelineItem) => void;
-}
 
 const typeIcons: Record<TimelineItemType, React.ReactNode> = {
   default: <Clock className="h-4 w-4" />,

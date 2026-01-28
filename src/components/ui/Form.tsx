@@ -2,12 +2,9 @@ import React from 'react';
  
 import {  ChevronDown } from 'lucide-react';
 import { cn } from '../../utils';
+import type { CheckboxProps, SelectProps, SwitchProps, TextareaProps } from '../../types';
 
-// --- Textarea ---
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string;
-  error?: string;
-}
+
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, label, error, id, ...props }, ref) => {
@@ -33,12 +30,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 Textarea.displayName = "Textarea";
 
 // --- Switch ---
-interface SwitchProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  checked?: boolean;
-  onCheckedChange?: (checked: boolean) => void;
-  className?: string;
-  disabled?: boolean;
-}
+ 
 
 export const Switch = ({ checked, onCheckedChange, disabled, className, ...props }: SwitchProps) => {
   return (
@@ -66,9 +58,7 @@ export const Switch = ({ checked, onCheckedChange, disabled, className, ...props
 };
 
 // --- Checkbox ---
-interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-}
+ 
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({ className, label, id, ...props }, ref) => {
   const checkboxId = id || React.useId();
@@ -100,11 +90,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({ cla
 Checkbox.displayName = "Checkbox";
 
 // --- Select (Native Wrapper) ---
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  label?: string;
-  options: { label: string; value: string }[];
-  error?: string;
-}
+ 
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({ className, label, options, error, id, ...props }, ref) => {

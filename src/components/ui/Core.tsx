@@ -1,7 +1,7 @@
 import React from 'react';
  
 import { AlertCircle } from 'lucide-react';
-import type { BadgeProps, BaseProps, InputProps } from '../../types';
+import type { AvatarProps, BadgeProps,  InputProps } from '../../types';
 import { cn } from '../../utils';
 
 // --- Input Component ---
@@ -67,11 +67,7 @@ export const Badge = ({ className, variant = 'default', children, ...props }: Ba
 };
 
 // --- Avatar Component ---
-interface AvatarProps extends BaseProps {
-  src?: string;
-  alt?: string;
-  fallback: string;
-}
+
 
 export const Avatar = ({ className, src, alt, fallback }: AvatarProps) => {
   return (

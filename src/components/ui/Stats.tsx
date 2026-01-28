@@ -2,42 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { ArrowUp, ArrowDown, TrendingUp, TrendingDown, Minus, Target, Zap, Users, DollarSign, Clock, BarChart,   Star, Globe, Shield } from 'lucide-react';
 import { cn } from '../../utils';
 import { Badge } from './Core';
+import type { SingleStatProps, StatItem, StatSize, StatsProps, StatTrend, StatVariant } from '../../types';
 
-export type StatVariant = 'default' | 'card' | 'minimal' | 'gradient' | 'glass' | 'highlight';
-export type StatTrend = 'up' | 'down' | 'neutral';
-export type StatSize = 'sm' | 'md' | 'lg' | 'xl';
 
-export interface StatItem {
-  id: string | number;
-  title: string;
-  value: number;
-  prefix?: string;
-  suffix?: string;
-  description?: string;
-  trend?: StatTrend;
-  trendValue?: number | string;
-  icon?: React.ReactNode;
-  color?: string;
-  delay?: number;
-  duration?: number;
-  format?: 'number' | 'currency' | 'percent' | 'decimal';
-  decimals?: number;
-  loading?: boolean;
-  target?: number;
-  progress?: number;
-}
-
-export interface StatsProps {
-  items: StatItem[];
-  variant?: StatVariant;
-  size?: StatSize;
-  columns?: 1 | 2 | 3 | 4;
-  animate?: boolean;
-  autoAnimate?: boolean;
-  animationDuration?: number;
-  className?: string;
-  onComplete?: () => void;
-}
 
 const defaultIcon: Record<string, React.ReactNode> = {
   default: <BarChart className="h-5 w-5" />,
@@ -388,13 +355,7 @@ export function Stats({
 }
 
 // Single Stat Component
-export interface SingleStatProps extends Omit<StatItem, 'id' | 'title'> {
-  title?: string;
-  variant?: StatVariant;
-  size?: StatSize;
-  className?: string;
-  animate?: boolean;
-}
+
 
 export function SingleStat({
   title,

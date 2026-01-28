@@ -1,57 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut,  Download, Heart, Share2, Play, Pause,  RotateCw } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, Download, Heart, Share2, Play, Pause, RotateCw } from 'lucide-react';
 import { cn } from '../../utils';
 import { Button } from './Button';
+import type { GalleryImage, ImageGalleryProps, JustifiedGridProps } from '../../types';
 
-export type GalleryLayout = 'grid' | 'masonry' | 'carousel' | 'justified';
-export type GalleryMode = 'lightbox' | 'inline' | 'slideshow';
-export type ImageFit = 'cover' | 'contain' | 'fill';
 
-export interface GalleryImage {
-  id: string | number;
-  src: string;
-  alt: string;
-  title?: string;
-  description?: string;
-  width?: number;
-  height?: number;
-  thumbnail?: string;
-  tags?: string[];
-  liked?: boolean;
-  downloads?: number;
-}
-
-export interface ImageGalleryProps {
-  images: GalleryImage[];
-  layout?: GalleryLayout;
-  mode?: GalleryMode;
-  columns?: 1 | 2 | 3 | 4 | 5 | 6;
-  gap?: number;
-  showThumbnails?: boolean;
-  showControls?: boolean;
-  showCaptions?: boolean;
-  showOverlay?: boolean;
-  autoPlay?: boolean;
-  autoPlayInterval?: number;
-  enableZoom?: boolean;
-  enableDownload?: boolean;
-  enableLike?: boolean;
-  enableShare?: boolean;
-  imageFit?: ImageFit;
-  maxHeight?: number | string;
-  className?: string;
-  onImageClick?: (image: GalleryImage, index: number) => void;
-  onLike?: (image: GalleryImage) => void;
-  onDownload?: (image: GalleryImage) => void;
-  onShare?: (image: GalleryImage) => void;
-}
 
 export function ImageGallery({
   images,
   layout = 'grid',
   mode = 'inline',
   columns = 4,
-   showThumbnails = true,
+  showThumbnails = true,
   showControls = true,
   showCaptions = true,
   showOverlay = true,
@@ -211,7 +171,7 @@ export function ImageGallery({
               )}
             </div>
           )}
-          
+
           <div className="flex items-center justify-between mt-3">
             <div className="flex items-center gap-2">
               {enableLike && (
@@ -227,7 +187,7 @@ export function ImageGallery({
                   />
                 </Button>
               )}
-              
+
               {enableDownload && (
                 <Button
                   size="icon"
@@ -238,7 +198,7 @@ export function ImageGallery({
                   <Download size={18} />
                 </Button>
               )}
-              
+
               {enableShare && (
                 <Button
                   size="icon"
@@ -250,7 +210,7 @@ export function ImageGallery({
                 </Button>
               )}
             </div>
-            
+
             {image.tags && image.tags.length > 0 && (
               <div className="flex gap-1 flex-wrap justify-end">
                 {image.tags.slice(0, 2).map((tag, i) => (
@@ -306,9 +266,9 @@ export function ImageGallery({
               }}
               loading="lazy"
             />
-            
+
             {renderImageOverlay(image)}
-            
+
             {showCaptions && !showOverlay && (
               <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
                 <h3 className="font-medium text-white text-sm truncate">
@@ -346,7 +306,7 @@ export function ImageGallery({
                     )}
                     style={{ height: maxHeight }}
                   />
-                  
+
                   {showCaptions && (
                     <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
                       <h3 className="text-xl font-semibold text-white">
@@ -373,7 +333,7 @@ export function ImageGallery({
             >
               <ChevronLeft size={20} />
             </Button>
-            
+
             <Button
               size="icon"
               variant="secondary"
@@ -473,7 +433,7 @@ export function ImageGallery({
                 transition: 'transform 0.2s ease',
               }}
             />
-            
+
             {showCaptions && (
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 to-transparent">
                 <h3 className="text-2xl font-semibold text-white">
@@ -519,7 +479,7 @@ export function ImageGallery({
               >
                 <ZoomOut size={20} />
               </Button>
-              
+
               <Button
                 size="icon"
                 variant="ghost"
@@ -528,7 +488,7 @@ export function ImageGallery({
               >
                 <RotateCw size={20} />
               </Button>
-              
+
               <Button
                 size="icon"
                 variant="ghost"
@@ -538,7 +498,7 @@ export function ImageGallery({
               >
                 <ZoomIn size={20} />
               </Button>
-              
+
               <div className="text-white text-sm mx-2">
                 {Math.round(zoomLevel * 100)}%
               </div>
@@ -657,13 +617,7 @@ export function ImageGallery({
 }
 
 // Justified Grid Component
-export interface JustifiedGridProps {
-  images: GalleryImage[];
-  targetHeight?: number;
-  gap?: number;
-  className?: string;
-  onImageClick?: (image: GalleryImage, index: number) => void;
-}
+
 
 export function JustifiedGrid({
   images,
@@ -698,13 +652,13 @@ export function JustifiedGrid({
       const aspectRatio = image.width && image.height ? image.width / image.height : 1;
       const imageWidth = targetHeight * aspectRatio;
       const imageWithWidth = { ...image, width: imageWidth };
-      
+
       if (currentRowWidth + imageWidth > containerWidth && currentRow.length > 0) {
         rows.push([...currentRow]);
         currentRow = [];
         currentRowWidth = 0;
       }
-      
+
       currentRow.push(imageWithWidth);
       currentRowWidth += imageWidth + gap;
     });

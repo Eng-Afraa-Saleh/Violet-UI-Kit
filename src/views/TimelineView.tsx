@@ -3,8 +3,9 @@ import { Check, Clock, AlertCircle, Star,  User, Package, MessageSquare, Trendin
  import { Badge } from '../components/ui/Core';
 import { Button } from '../components/ui/Button';
 import { Switch } from '../components/ui/Form';
-import { Timeline, type TimelineItem } from '../components/ui/Timeline';
-import ComponentPreview from './ComponentPreview';
+ import ComponentPreview from './ComponentPreview';
+import type { TimelineItem } from '../types';
+import { Timeline } from '../components/ui/Timeline';
 
 const TimelineView = () => {
   const [animate, setAnimate] = useState(true);

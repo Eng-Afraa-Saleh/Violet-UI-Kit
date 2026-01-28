@@ -4,14 +4,7 @@ import { Checkbox, Select, Switch, Textarea } from "../components/ui/Form";
 
 const FormsView = () => {
   const [aiText, setAiText] = useState("The fox jump over dog.");
-  // const [loading, setLoading] = useState(false);
-
-  // const handleAiFix = async () => {
-  //   setLoading(true);
-  //   const fixed = await improveText(aiText);
-  //   setAiText(fixed);
-  //   setLoading(false);
-  // };
+ 
 
   return (
     <div className="space-y-10">
@@ -42,11 +35,7 @@ improveText(text).then(result => setText(result));`}>
             onChange={(e) => setAiText(e.target.value)}
             rows={4}
           />
-          {/* <div className="flex justify-end">
-             <Button size="sm" variant="secondary" onClick={handleAiFix} isLoading={loading} leftIcon={<Wand2 size={14} />}>
-               Fix Grammar (AI)
-             </Button>
-          </div> */}
+           
         </div>
       </ComponentPreview>
     </div>

@@ -1,9 +1,10 @@
 import  { useState, useEffect } from 'react';
 import { Users, DollarSign, ShoppingCart, TrendingUp, Zap, Clock, Target, Star, Globe, Shield, Heart, Package, MessageSquare, Eye, Download, Cloud } from 'lucide-react';
- import { Stats, SingleStat, type StatItem } from '../components/ui/Stats';
+ import { Stats, SingleStat } from '../components/ui/Stats';
 import { Button } from '../components/ui/Button';
 import { Switch } from '../components/ui/Form';
 import ComponentPreview from './ComponentPreview';
+import type { StatItem } from '../types';
  
 const StatsView = () => {
   const [animate, setAnimate] = useState(true);

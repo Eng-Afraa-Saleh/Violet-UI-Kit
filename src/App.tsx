@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import {
   Layout, Type, MousePointer2, FormInput,
   MessageSquare, LayoutTemplate,
-  Menu, X, Search, Terminal,
+  Menu, X,   Terminal,
   Palette,
   Navigation as NavIcon,
   Table2Icon,
@@ -14,8 +14,7 @@ import {
   ImageIcon
 
 } from 'lucide-react';
-import { Input } from './components/ui/Core';
-import { Switch } from './components/ui/Form';
+ import { Switch } from './components/ui/Form';
 import { cn } from './utils';
 import IntroView from './views/IntroView';
 import ButtonsView from './views/ButtonsView';
@@ -30,7 +29,7 @@ import DashboardTemplate from './views/DashboardTemplate';
 import DataTableView from './views/DataTableView';
 import TimelineView from './views/TimelineView';
 import TabsView from './views/TabsView';
-import StatsView from './views/StatsView';
+// import StatsView from './views/StatsView';
 import SliderView from './views/SliderView';
 import ImageGalleryView from './views/ImageGalleryView';
 
@@ -54,15 +53,11 @@ const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme 
     { id: 'data-table', label: 'Data Table', icon: <Table2Icon size={18} /> },
     { id: 'time-line', label: 'Time Line', icon: <TimerResetIcon size={18} /> },
     { id: 'tabs', label: 'Tabs', icon: <Layout size={18} /> },
-    { id: 'stats', label: 'Stats', icon: <Layout size={18} /> },
+    // { id: 'stats', label: 'Stats', icon: <Layout size={18} /> },
     { id: 'slider', label: 'Slider', icon: <SlidersIcon size={18} /> },
     { id: 'image-gallery', label: 'Image Gallery', icon: <ImageIcon size={18} /> },
 
-
-
-
-
-
+ 
   ];
 
   return (
@@ -74,8 +69,7 @@ const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme 
       )}>
         <div className="flex h-16 items-center justify-between border-b border-slate-200 px-6 dark:border-slate-800">
           <div className="flex items-center gap-2 font-bold text-xl tracking-tight text-primary-600 dark:text-primary-400">
-            <div className="h-6 w-6 rounded bg-primary-600" />
-            Violet UI
+             Violet UI Kit
           </div>
           <button onClick={() => setIsOpen(false)} className="lg:hidden">
             <X size={20} />
@@ -83,9 +77,9 @@ const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme 
         </div>
 
         <div className="flex-1 overflow-y-auto p-4">
-          <div className="mb-4 px-2">
+          {/* <div className="mb-4 px-2">
             <Input placeholder="Search components..." leftIcon={<Search size={14} />} className="h-9" />
-          </div>
+          </div> */}
           <nav className="space-y-1">
             {menuItems.map((item) => (
               <button
@@ -118,7 +112,7 @@ const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme 
 export default function App() {
   const [currentView, setCurrentView] = useState<View>('intro');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     if (isDark) document.documentElement.classList.add('dark');
@@ -140,7 +134,7 @@ export default function App() {
       case 'data-table': return <DataTableView />;
       case 'time-line': return <TimelineView />;
       case 'tabs': return <TabsView />;
-      case 'stats': return <StatsView />;
+      // case 'stats': return <StatsView />;
       case 'slider': return < SliderView />;
       case 'image-gallery': return <ImageGalleryView />;
 
@@ -178,7 +172,7 @@ export default function App() {
           </div>
         </header>
 
-        <main className="flex-1 p-6 lg:p-10 max-w-6xl mx-auto w-full animate-fade-in">
+        <main className="flex-1 p-2 lg:p-6 max-w-6xl mx-auto w-full animate-fade-in relative min-h-screen md:overflow-hidden">
           {renderView()}
         </main>
       </div>

@@ -1,16 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
 import { cn } from '../../utils';
 import { Badge } from './Core';
+import type { TabContentProps, TabsContextType, TabsListProps, TabsProps, TabTriggerProps } from '../../types';
 
-type TabVariant = 'default' | 'underline' | 'pills' | 'segmented' | 'vertical';
-type TabSize = 'sm' | 'md' | 'lg';
 
-interface TabsContextType {
-  activeTab: string;
-  setActiveTab: (id: string) => void;
-  variant: TabVariant;
-  size: TabSize;
-}
 
 const TabsContext = createContext<TabsContextType | undefined>(undefined);
 
@@ -22,14 +15,7 @@ const useTabs = () => {
   return context;
 };
 
-export interface TabsProps {
-  defaultValue: string;
-  variant?: TabVariant;
-  size?: TabSize;
-  className?: string;
-  children: React.ReactNode;
-  onChange?: (tabId: string) => void;
-}
+
 
 export function Tabs({
   defaultValue,
@@ -53,12 +39,7 @@ export function Tabs({
   );
 }
 
-export interface TabsListProps {
-  className?: string;
-  children: React.ReactNode;
-  fullWidth?: boolean;
-  centered?: boolean;
-}
+
 
 export function TabsList({ className, children, fullWidth = false, centered = false }: TabsListProps) {
   const { variant, size } = useTabs();
@@ -102,14 +83,6 @@ export function TabsList({ className, children, fullWidth = false, centered = fa
   );
 }
 
-export interface TabTriggerProps {
-  value: string;
-  icon?: React.ReactNode;
-  badge?: string | number;
-  disabled?: boolean;
-  className?: string;
-  children: React.ReactNode;
-}
 
 export function TabTrigger({
   value,
@@ -188,11 +161,7 @@ export function TabTrigger({
   );
 }
 
-export interface TabContentProps {
-  value: string;
-  className?: string;
-  children: React.ReactNode;
-}
+
 
 export function TabContent({ value, className, children }: TabContentProps) {
   const { activeTab } = useTabs();

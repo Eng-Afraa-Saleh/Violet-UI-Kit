@@ -2,22 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, User, Sparkles, Loader2, Bot, Trash2 } from 'lucide-react';
 import OpenAI from 'openai';
+import type { Message, UniversalChatBotProps } from '../../types';
 
- interface UniversalChatBotProps {
-  apiKey: string;          
-  model: string;           
-  baseUrl?: string;        
-  systemPrompt?: string;    
-  title?: string;           
-  welcomeMessage?: string;  
-  primaryColor?: string;   
-  language?: 'ar' | 'en';   
-}
-
-interface Message {
-  role: 'user' | 'assistant' | 'system';
-  content: string;
-}
 
 const STORAGE_KEY = 'universal_chat_history';
 
@@ -49,13 +35,11 @@ const UniversalChatBot: React.FC<UniversalChatBotProps> = ({
     }
   }, []);
 
-  // حفظ السجل عند التغيير
-  useEffect(() => {
+   useEffect(() => {
     if (messages.length > 0) localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
   }, [messages]);
 
-  // التمرير التلقائي لأسفل
-  useEffect(() => {
+   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, isTyping, isOpen]);
 
@@ -83,15 +67,13 @@ const UniversalChatBot: React.FC<UniversalChatBotProps> = ({
     setIsTyping(true);
 
     try {
-      // تهيئة العميل باستخدام القيم الممررة
-      const openai = new OpenAI({
+       const openai = new OpenAI({
         baseURL: baseUrl,
         apiKey: apiKey,
-        dangerouslyAllowBrowser: true // ضروري للعمل من المتصفح مباشرة
+        dangerouslyAllowBrowser: true  
       });
 
-      // إعداد الرسائل مع تعليمات النظام
-      const apiMessages = [
+       const apiMessages = [
         { role: "system", content: systemPrompt },
         ...updatedMessages.map(m => ({ role: m.role, content: m.content }))
       ];
@@ -127,8 +109,7 @@ const UniversalChatBot: React.FC<UniversalChatBotProps> = ({
     }
   };
 
-  // دوال مساعدة للألوان الديناميكية (يمكن توسيعها)
-  const getBgColor = (intensity: number) => `bg-${primaryColor}-${intensity}`;
+   const getBgColor = (intensity: number) => `bg-${primaryColor}-${intensity}`;
   const getTextColor = (intensity: number) => `text-${primaryColor}-${intensity}`;
 
   return (
@@ -139,10 +120,10 @@ const UniversalChatBot: React.FC<UniversalChatBotProps> = ({
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className={`absolute bottom-20 ${language === 'ar' ? 'left-0' : 'right-0'} w-[90vw] sm:w-[380px] h-[500px] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col font-sans`}
+            className={`absolute bottom-20 ${language === 'ar' ? 'left-0' : 'right-0'} w-[90vw] sm:w-[380px] h-[450px] md:h-[500px] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col font-sans`}
           >
             {/* Header */}
-            <div className={`p-4 ${getBgColor(600)} bg-slate-900 text-white flex items-center justify-between`}>
+            <div className={`p-4 ${getBgColor(600)} bg-purple-800 text-white flex items-center justify-between`}>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
                    <Bot size={20} className="text-white" />
@@ -240,7 +221,7 @@ const UniversalChatBot: React.FC<UniversalChatBotProps> = ({
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-slate-900 text-white rounded-full shadow-lg shadow-slate-900/30 flex items-center justify-center"
+        className="w-14 h-14 bg-purple-800 text-white rounded-full shadow-lg shadow-slate-900/30 flex items-center justify-center"
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
       </motion.button>

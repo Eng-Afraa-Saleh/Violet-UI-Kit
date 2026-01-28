@@ -1,31 +1,6 @@
 import React, { useState, useRef } from 'react';
- import { cn } from '../../utils';
-
-export type SliderVariant = 'default' | 'range' | 'gradient' | 'thumb' | 'vertical';
-export type SliderSize = 'sm' | 'md' | 'lg';
-
-export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
-  value?: number;
-  defaultValue?: number;
-  min?: number;
-  max?: number;
-  step?: number;
-  variant?: SliderVariant;
-  sliderSize?: SliderSize;
-  showValue?: boolean;
-  showLabels?: boolean;
-  showMarks?: boolean;
-  marks?: number[];
-  label?: string;
-  iconLeft?: React.ReactNode;
-  iconRight?: React.ReactNode;
-  className?: string;
-  trackClassName?: string;
-  thumbClassName?: string;
-  onChange?: (value: number) => void;
-  onChangeEnd?: (value: number) => void;
-  formatValue?: (value: number) => string;
-}
+import { cn } from '../../utils';
+import type { RangeSliderProps, SliderProps } from '../../types';
 
 export function Slider({
   value: controlledValue,
@@ -119,90 +94,90 @@ export function Slider({
 
   const handleMouseDown = (event: React.MouseEvent) => {
     if (disabled) return;
-    
+
     setIsDragging(true);
     handleDrag(event);
-    
+
     const handleMouseMove = (moveEvent: MouseEvent) => {
       handleDrag(moveEvent);
     };
-    
+
     const handleMouseUp = () => {
       setIsDragging(false);
       onChangeEnd?.(value);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-    
+
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
   };
 
   const handleDrag = (event: MouseEvent | React.MouseEvent) => {
     if (!sliderRef.current || disabled) return;
-    
+
     const rect = sliderRef.current.getBoundingClientRect();
     const offsetX = event.clientX - rect.left;
     const width = rect.width;
-    
+
     let newPercentage = (offsetX / width) * 100;
     newPercentage = Math.max(0, Math.min(100, newPercentage));
-    
+
     const newValue = min + (newPercentage / 100) * (max - min);
     const steppedValue = Math.round(newValue / step) * step;
-    
+
     const clampedValue = Math.max(min, Math.min(max, steppedValue));
-    
+
     setInternalValue(clampedValue);
     onChange?.(clampedValue);
   };
 
   const handleTouchStart = (event: React.TouchEvent) => {
     if (disabled) return;
-    
+
     setIsDragging(true);
     handleTouch(event);
-    
+
     const handleTouchMove = (moveEvent: TouchEvent) => {
       handleTouch(moveEvent);
     };
-    
+
     const handleTouchEnd = () => {
       setIsDragging(false);
       onChangeEnd?.(value);
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleTouchEnd);
     };
-    
+
     document.addEventListener('touchmove', handleTouchMove);
     document.addEventListener('touchend', handleTouchEnd);
   };
 
   const handleTouch = (event: TouchEvent | React.TouchEvent) => {
     if (!sliderRef.current || disabled || !event.touches[0]) return;
-    
+
     const rect = sliderRef.current.getBoundingClientRect();
     const touch = event.touches[0];
     const offsetX = touch.clientX - rect.left;
     const width = rect.width;
-    
+
     let newPercentage = (offsetX / width) * 100;
     newPercentage = Math.max(0, Math.min(100, newPercentage));
-    
+
     const newValue = min + (newPercentage / 100) * (max - min);
     const steppedValue = Math.round(newValue / step) * step;
-    
+
     const clampedValue = Math.max(min, Math.min(max, steppedValue));
-    
+
     setInternalValue(clampedValue);
     onChange?.(clampedValue);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (disabled) return;
-    
+
     let newValue = value;
-    
+
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowDown':
@@ -221,7 +196,7 @@ export function Slider({
       default:
         return;
     }
-    
+
     event.preventDefault();
     setInternalValue(newValue);
     onChange?.(newValue);
@@ -230,9 +205,9 @@ export function Slider({
 
   const renderMarks = () => {
     if (!showMarks && !marks) return null;
-    
+
     const markPoints = marks || [min, min + (max - min) / 4, min + (max - min) / 2, min + 3 * (max - min) / 4, max];
-    
+
     return (
       <div className="absolute top-full mt-2 w-full flex justify-between px-1">
         {markPoints.map((mark, index) => (
@@ -251,7 +226,7 @@ export function Slider({
 
   if (isVertical) {
     const verticalPercentage = percentage;
-    
+
     return (
       <div className={cn("flex flex-col items-center", className)}>
         {label && (
@@ -259,14 +234,14 @@ export function Slider({
             {label}
           </div>
         )}
-        
+
         <div className="flex items-center gap-4">
           {showValue && (
             <div className={cn("font-mono font-bold text-slate-900 dark:text-slate-50 min-w-12 text-center", sizeClasses[sliderSize].value)}>
               {formatValue(value)}
             </div>
           )}
-          
+
           <div className="relative" style={{ height: '200px' }}>
             <div
               ref={sliderRef}
@@ -286,7 +261,7 @@ export function Slider({
                 )}
                 style={{ height: `${verticalPercentage}%` }}
               />
-              
+
               <div
                 ref={thumbRef}
                 className={cn(
@@ -307,7 +282,7 @@ export function Slider({
                 role="slider"
               />
             </div>
-            
+
             {showLabels && (
               <div className="absolute -left-8 top-0 bottom-0 flex flex-col justify-between text-xs text-slate-500 dark:text-slate-400">
                 <span>{formatValue(max)}</span>
@@ -316,7 +291,7 @@ export function Slider({
             )}
           </div>
         </div>
-        
+
         {renderMarks()}
       </div>
     );
@@ -338,7 +313,7 @@ export function Slider({
           )}
         </div>
       )}
-      
+
       <div className="flex items-center gap-3">
         {iconLeft && (
           <div className={cn(
@@ -348,7 +323,7 @@ export function Slider({
             {iconLeft}
           </div>
         )}
-        
+
         <div className="flex-1 relative">
           <div
             ref={sliderRef}
@@ -368,7 +343,7 @@ export function Slider({
               )}
               style={{ width: `${percentage}%` }}
             />
-            
+
             {showMarks && !marks && (
               <div className="absolute inset-0 flex justify-between px-0.5">
                 {[0, 25, 50, 75, 100].map((mark) => (
@@ -380,7 +355,7 @@ export function Slider({
                 ))}
               </div>
             )}
-            
+
             <div
               ref={thumbRef}
               className={cn(
@@ -401,9 +376,9 @@ export function Slider({
               role="slider"
             />
           </div>
-          
+
           {renderMarks()}
-          
+
           {showLabels && !showMarks && (
             <div className="flex justify-between mt-1">
               <span className="text-xs text-slate-500 dark:text-slate-400">
@@ -415,7 +390,7 @@ export function Slider({
             </div>
           )}
         </div>
-        
+
         {iconRight && (
           <div className={cn(
             "text-slate-500 dark:text-slate-400",
@@ -425,7 +400,7 @@ export function Slider({
           </div>
         )}
       </div>
-      
+
       {/* Hidden input for form compatibility */}
       <input
         type="range"
@@ -443,17 +418,6 @@ export function Slider({
 }
 
 // Range Slider Component
-export interface RangeSliderProps {
-  minValue?: number;
-  maxValue?: number;
-  min?: number;
-  max?: number;
-  step?: number;
-  label?: string;
-  className?: string;
-  onChange?: (values: { min: number; max: number }) => void;
-  formatValue?: (value: number) => string;
-}
 
 export function RangeSlider({
   minValue = 25,
@@ -475,28 +439,28 @@ export function RangeSlider({
 
   const handleDrag = (event: MouseEvent, thumb: 'min' | 'max') => {
     if (!sliderRef.current) return;
-    
+
     const rect = sliderRef.current.getBoundingClientRect();
     const offsetX = event.clientX - rect.left;
     const width = rect.width;
-    
+
     let newPercentage = (offsetX / width) * 100;
     newPercentage = Math.max(0, Math.min(100, newPercentage));
-    
+
     const newValue = min + (newPercentage / 100) * (max - min);
     const steppedValue = Math.round(newValue / step) * step;
-    
+
     const clampedValue = Math.max(min, Math.min(max, steppedValue));
-    
+
     setValues(prev => {
       let newValues = { ...prev };
-      
+
       if (thumb === 'min') {
         newValues.min = Math.min(clampedValue, prev.max - step);
       } else {
         newValues.max = Math.max(clampedValue, prev.min + step);
       }
-      
+
       return newValues;
     });
   };
@@ -504,18 +468,18 @@ export function RangeSlider({
   const handleMouseDown = (event: React.MouseEvent, thumb: 'min' | 'max') => {
     setActiveThumb(thumb);
     handleDrag(event as any, thumb);
-    
+
     const handleMouseMove = (moveEvent: MouseEvent) => {
       handleDrag(moveEvent, thumb);
     };
-    
+
     const handleMouseUp = () => {
       setActiveThumb(null);
       onChange?.(values);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-    
+
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
   };
@@ -532,7 +496,7 @@ export function RangeSlider({
           </div>
         </div>
       )}
-      
+
       <div className="relative">
         <div
           ref={sliderRef}
@@ -545,7 +509,7 @@ export function RangeSlider({
               right: `${100 - maxPercentage}%`,
             }}
           />
-          
+
           {/* Min thumb */}
           <div
             className={cn(
@@ -555,7 +519,7 @@ export function RangeSlider({
             style={{ left: `${minPercentage}%`, transform: 'translate(-50%, -50%)' }}
             onMouseDown={(e) => handleMouseDown(e, 'min')}
           />
-          
+
           {/* Max thumb */}
           <div
             className={cn(
@@ -566,7 +530,7 @@ export function RangeSlider({
             onMouseDown={(e) => handleMouseDown(e, 'max')}
           />
         </div>
-        
+
         <div className="flex justify-between mt-1">
           <span className="text-xs text-slate-500 dark:text-slate-400">
             {formatValue(min)}
