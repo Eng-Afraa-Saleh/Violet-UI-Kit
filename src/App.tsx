@@ -7,7 +7,11 @@ import {
   MessageSquare, LayoutTemplate,
   Menu, X, Search, Terminal,
   Palette,
-  Navigation as NavIcon
+  Navigation as NavIcon,
+  Table2Icon,
+  TimerResetIcon,
+  SlidersIcon,
+  ImageIcon
 
 } from 'lucide-react';
 import { Input } from './components/ui/Core';
@@ -23,9 +27,17 @@ import NavigationView from './views/NavigationView';
 import CreativeCardsView from './views/CreativeCardsView';
 import ChatBotView from './views/ChatBotView';
 import DashboardTemplate from './views/DashboardTemplate';
+import DataTableView from './views/DataTableView';
+import TimelineView from './views/TimelineView';
+import TabsView from './views/TabsView';
+import StatsView from './views/StatsView';
+import SliderView from './views/SliderView';
+import ImageGalleryView from './views/ImageGalleryView';
 
 // --- Types ---
-type View = 'intro' | 'buttons' | 'inputs' | 'layout' | 'feedback' | 'forms' | 'template' | 'creative-cards' | 'navigation' | 'chatbot';
+type View = 'intro' | 'buttons' | 'inputs' | 'layout' | 'feedback' |
+  'forms' | 'template' | 'creative-cards' | 'navigation' | 'chatbot' |
+  'data-table' | 'time-line' | 'tabs' | 'stats' | 'slider' | 'image-gallery';
 // --- Sidebar ---
 const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme }: any) => {
   const menuItems = [
@@ -39,13 +51,25 @@ const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme 
     { id: 'creative-cards', label: 'Creative Cards', icon: <Palette size={18} /> },
     { id: 'chatbot', label: 'AI ChatBot', icon: <MessageSquare size={18} /> },
     { id: 'template', label: 'Dashboard Template', icon: <LayoutTemplate size={18} /> },
+    { id: 'data-table', label: 'Data Table', icon: <Table2Icon size={18} /> },
+    { id: 'time-line', label: 'Time Line', icon: <TimerResetIcon size={18} /> },
+    { id: 'tabs', label: 'Tabs', icon: <Layout size={18} /> },
+    { id: 'stats', label: 'Stats', icon: <Layout size={18} /> },
+    { id: 'slider', label: 'Slider', icon: <SlidersIcon size={18} /> },
+    { id: 'image-gallery', label: 'Image Gallery', icon: <ImageIcon size={18} /> },
+
+
+
+
+
+
   ];
 
   return (
     <>
       <div className={cn("fixed inset-0 z-20 bg-black/50 lg:hidden", isOpen ? "block" : "hidden")} onClick={() => setIsOpen(false)} />
       <aside className={cn(
-        "fixed left-0 top-0 z-50 h-screen w-64 flex-col border-r border-slate-200 bg-white transition-transform duration-300 dark:bg-slate-950 dark:border-slate-800 lg:translate-x-0",
+        "fixed left-0 top-0 z-50 h-screen w-64 flex-col border-r border-slate-200 bg-white transition-transform duration-300 dark:bg-slate-950 dark:border-slate-800 lg:translate-x-0 overflow-y-scroll",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         <div className="flex h-16 items-center justify-between border-b border-slate-200 px-6 dark:border-slate-800">
@@ -113,6 +137,15 @@ export default function App() {
       case 'creative-cards': return <CreativeCardsView />;
       case 'chatbot': return <ChatBotView />;
       case 'template': return <DashboardTemplate />;
+      case 'data-table': return <DataTableView />;
+      case 'time-line': return <TimelineView />;
+      case 'tabs': return <TabsView />;
+      case 'stats': return <StatsView />;
+      case 'slider': return < SliderView />;
+      case 'image-gallery': return <ImageGalleryView />;
+
+
+
       default: return <IntroView />;
     }
   };
