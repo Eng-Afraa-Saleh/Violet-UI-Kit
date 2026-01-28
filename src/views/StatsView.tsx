@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Users, DollarSign, ShoppingCart, TrendingUp, Zap, Clock, Target, Star, Globe, Shield, Heart, Package, MessageSquare, Eye, Download, Cloud } from 'lucide-react';
  import { Stats, SingleStat, type StatItem } from '../components/ui/Stats';
 import { Button } from '../components/ui/Button';

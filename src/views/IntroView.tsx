@@ -120,12 +120,7 @@ const IntroView = () => (
             </Card>
           </div>
           
-          {/* تأثيرات إضافية في الأسفل */}
-          <div className="pt-12 text-center">
-            <p className="text-slate-500 dark:text-slate-400 text-sm animate-pulse">
-              Scroll down to explore more components ↓
-            </p>
-          </div>
+          
         </div>
       </div>
     </div>

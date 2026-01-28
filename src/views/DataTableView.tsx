@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { Edit, Trash2, Eye, Mail, Phone, User, Check, X } from 'lucide-react';
+ import { Edit, Trash2, Eye, Mail,  User, Check  } from 'lucide-react';
   import { Badge } from '../components/ui/Core';
-import { Button } from '../components/ui/Button';
-import { DataTable, type Column } from '../components/ui/DataTable';
+ import { DataTable, type Column } from '../components/ui/DataTable';
 import ComponentPreview from './ComponentPreview';
 
 // نوع البيانات للمثال
@@ -17,8 +15,7 @@ interface UserData {
 }
 
 const DataTableView = () => {
-  const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
-
+ 
   // بيانات المثال
   const sampleData: UserData[] = [
     { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'active', joinDate: '2023-01-15', salary: 75000 },

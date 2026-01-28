@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Volume2, VolumeX, Sun, Moon, Zap, DollarSign, Target, Settings, Thermometer, Bell, Battery, Wifi, Music, Mic } from 'lucide-react';
+import   { useState } from 'react';
+import { Volume2, VolumeX, Sun, Moon, Zap, Settings, Thermometer, Bell, Battery, Wifi, Music, Mic } from 'lucide-react';
  import { Slider, RangeSlider } from '../components/ui/Slider';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Layout';

@@ -11,7 +11,7 @@ export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
   max?: number;
   step?: number;
   variant?: SliderVariant;
-  size?: SliderSize;
+  sliderSize?: SliderSize;
   showValue?: boolean;
   showLabels?: boolean;
   showMarks?: boolean;
@@ -34,7 +34,7 @@ export function Slider({
   max = 100,
   step = 1,
   variant = 'default',
-  size = 'md',
+  sliderSize = 'md',
   showValue = true,
   showLabels = true,
   showMarks = false,
@@ -255,14 +255,14 @@ export function Slider({
     return (
       <div className={cn("flex flex-col items-center", className)}>
         {label && (
-          <div className={cn("mb-2 font-medium text-slate-700 dark:text-slate-300", sizeClasses[size].label)}>
+          <div className={cn("mb-2 font-medium text-slate-700 dark:text-slate-300", sizeClasses[sliderSize].label)}>
             {label}
           </div>
         )}
         
         <div className="flex items-center gap-4">
           {showValue && (
-            <div className={cn("font-mono font-bold text-slate-900 dark:text-slate-50 min-w-12 text-center", sizeClasses[size].value)}>
+            <div className={cn("font-mono font-bold text-slate-900 dark:text-slate-50 min-w-12 text-center", sizeClasses[sliderSize].value)}>
               {formatValue(value)}
             </div>
           )}
@@ -273,7 +273,7 @@ export function Slider({
               className={cn(
                 "relative w-2 rounded-full cursor-pointer",
                 variantClasses[variant].track,
-                sizeClasses[size].track,
+                sizeClasses[sliderSize].track,
                 disabled && "opacity-50 cursor-not-allowed"
               )}
               onMouseDown={handleMouseDown}
@@ -292,7 +292,7 @@ export function Slider({
                 className={cn(
                   "absolute left-1/2 -translate-x-1/2 rounded-full transition-all duration-150",
                   variantClasses[variant].thumb,
-                  sizeClasses[size].thumb,
+                  sizeClasses[sliderSize].thumb,
                   thumbClassName,
                   isDragging && "scale-125",
                   disabled && "cursor-not-allowed"
@@ -327,12 +327,12 @@ export function Slider({
       {(label || (showValue && !isVertical)) && (
         <div className="flex items-center justify-between mb-2">
           {label && (
-            <div className={cn("font-medium text-slate-700 dark:text-slate-300", sizeClasses[size].label)}>
+            <div className={cn("font-medium text-slate-700 dark:text-slate-300", sizeClasses[sliderSize].label)}>
               {label}
             </div>
           )}
           {showValue && !isVertical && (
-            <div className={cn("font-mono font-bold text-slate-900 dark:text-slate-50", sizeClasses[size].value)}>
+            <div className={cn("font-mono font-bold text-slate-900 dark:text-slate-50", sizeClasses[sliderSize].value)}>
               {formatValue(value)}
             </div>
           )}
@@ -355,7 +355,7 @@ export function Slider({
             className={cn(
               "relative rounded-full cursor-pointer",
               variantClasses[variant].track,
-              sizeClasses[size].track,
+              sizeClasses[sliderSize].track,
               disabled && "opacity-50 cursor-not-allowed"
             )}
             onMouseDown={handleMouseDown}
@@ -386,7 +386,7 @@ export function Slider({
               className={cn(
                 "absolute top-1/2 -translate-y-1/2 rounded-full transition-all duration-150",
                 variantClasses[variant].thumb,
-                sizeClasses[size].thumb,
+                sizeClasses[sliderSize].thumb,
                 thumbClassName,
                 isDragging && "scale-125",
                 disabled && "cursor-not-allowed"

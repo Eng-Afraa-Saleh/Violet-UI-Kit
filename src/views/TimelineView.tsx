@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Check, Clock, AlertCircle, Star, MapPin, Calendar, User, Package, MessageSquare, TrendingUp, Truck, CreditCard, Download, ExternalLink, Bell } from 'lucide-react';
+import  { useState } from 'react';
+import { Check, Clock, AlertCircle, Star,  User, Package, MessageSquare, TrendingUp, Truck, CreditCard, Download, ExternalLink } from 'lucide-react';
  import { Badge } from '../components/ui/Core';
 import { Button } from '../components/ui/Button';
 import { Switch } from '../components/ui/Form';

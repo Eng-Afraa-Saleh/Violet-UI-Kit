@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { Grid, List, Play, Pause, Maximize2, Download, Heart, Share2, Camera, Image as ImageIcon } from 'lucide-react';
+import  { useState } from 'react';
+import { Grid, List,  Download, Heart, Share2, Camera, Image as ImageIcon } from 'lucide-react';
  import { ImageGallery, JustifiedGrid, type GalleryImage, type GalleryLayout } from '../components/ui/ImageGallery';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Layout';
-import { Select } from '../components/ui/Form';
-import ComponentPreview from './ComponentPreview';
+ import ComponentPreview from './ComponentPreview';
 
 const ImageGalleryView = () => {
   const [currentLayout, setCurrentLayout] = useState<GalleryLayout>('grid');

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { User, Settings, Bell, Database, Code, Lock, Globe, BarChart, Mail, Image, Video, FileText, Download, Upload, Cloud, Server } from 'lucide-react';
+ import { User, Settings, Bell, Database, Code, Lock, Globe, BarChart, Mail, Image, Video, FileText, Download, Upload, Cloud, Server } from 'lucide-react';
  import { Tabs, TabsList, TabTrigger, TabContent } from '../components/ui/Tabs';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Core';
@@ -8,8 +7,7 @@ import { Switch } from '../components/ui/Form';
 import ComponentPreview from './ComponentPreview';
 
 const TabsView = () => {
-  const [activeTab, setActiveTab] = useState('account');
-
+ 
   return (
     <div className="space-y-10">
       <div className="space-y-2">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronUp, ChevronDown, ChevronsUpDown, Search, Filter, MoreVertical } from 'lucide-react';
+import { ChevronUp, ChevronDown, ChevronsUpDown, Search, Filter  } from 'lucide-react';
 import { Input } from './Core';
 import { Button } from './Button';
 import { cn } from '../../utils';
@@ -244,8 +244,7 @@ export function DataTable<T extends Record<string, any>>({
                           <Button
                             key={actionIndex}
                             size="sm"
-                            variant={action.variant || 'outline'}
-                            onClick={(e) => {
+                             onClick={(e) => {
                               e.stopPropagation();
                               action.onClick(row);
                             }}

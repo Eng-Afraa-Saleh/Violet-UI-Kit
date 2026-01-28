@@ -1,7 +1,7 @@
- import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, Maximize2, Download, Heart, Share2, Play, Pause, Grid, List, RotateCw } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut,  Download, Heart, Share2, Play, Pause,  RotateCw } from 'lucide-react';
 import { cn } from '../../utils';
 import { Button } from './Button';
-import { useCallback, useEffect, useRef, useState } from 'react';
 
 export type GalleryLayout = 'grid' | 'masonry' | 'carousel' | 'justified';
 export type GalleryMode = 'lightbox' | 'inline' | 'slideshow';
@@ -51,8 +51,7 @@ export function ImageGallery({
   layout = 'grid',
   mode = 'inline',
   columns = 4,
-  gap = 4,
-  showThumbnails = true,
+   showThumbnails = true,
   showControls = true,
   showCaptions = true,
   showOverlay = true,
@@ -76,7 +75,7 @@ export function ImageGallery({
   const [zoomLevel, setZoomLevel] = useState(1);
   const [likedImages, setLikedImages] = useState<Set<string | number>>(new Set());
   const galleryRef = useRef<HTMLDivElement>(null);
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<number | undefined>(undefined);
 
   const columnsClasses = {
     1: 'grid-cols-1',
@@ -146,18 +145,18 @@ export function ImageGallery({
   // Auto-play functionality
   useEffect(() => {
     if (isPlaying && (mode === 'slideshow' || lightboxOpen)) {
-      intervalRef.current = setInterval(() => {
+      intervalRef.current = window.setInterval(() => {
         handleNext();
       }, autoPlayInterval);
     } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+      if (intervalRef.current !== undefined) {
+        window.clearInterval(intervalRef.current);
       }
     }
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+      if (intervalRef.current !== undefined) {
+        window.clearInterval(intervalRef.current);
       }
     };
   }, [isPlaying, mode, lightboxOpen, autoPlayInterval, handleNext]);
@@ -691,13 +690,14 @@ export function JustifiedGrid({
   const calculateLayout = () => {
     if (containerWidth === 0) return [];
 
-    const rows = [];
-    let currentRow = [];
+    const rows: Array<Array<GalleryImage & { width: number }>> = [];
+    let currentRow: Array<GalleryImage & { width: number }> = [];
     let currentRowWidth = 0;
 
     images.forEach((image) => {
       const aspectRatio = image.width && image.height ? image.width / image.height : 1;
       const imageWidth = targetHeight * aspectRatio;
+      const imageWithWidth = { ...image, width: imageWidth };
       
       if (currentRowWidth + imageWidth > containerWidth && currentRow.length > 0) {
         rows.push([...currentRow]);
@@ -705,7 +705,7 @@ export function JustifiedGrid({
         currentRowWidth = 0;
       }
       
-      currentRow.push({ ...image, width: imageWidth });
+      currentRow.push(imageWithWidth);
       currentRowWidth += imageWidth + gap;
     });
 
@@ -721,13 +721,13 @@ export function JustifiedGrid({
   return (
     <div ref={containerRef} className={cn('w-full', className)}>
       {rows.map((row, rowIndex) => {
-        const rowWidth = row.reduce((sum, img) => sum + img.width!, 0);
+        const rowWidth = row.reduce((sum, img) => sum + img.width, 0);
         const scale = (containerWidth - (row.length - 1) * gap) / rowWidth;
 
         return (
           <div key={rowIndex} className="flex gap-2 mb-2">
             {row.map((image, imgIndex) => {
-              const width = image.width! * scale;
+              const width = image.width * scale;
               const height = targetHeight;
 
               return (

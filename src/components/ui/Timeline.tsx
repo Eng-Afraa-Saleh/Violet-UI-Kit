@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Clock, AlertCircle, Star, MapPin, Calendar, User, Package, MessageSquare, TrendingUp } from 'lucide-react';
+import { Check, Clock, AlertCircle, Star, MapPin,  User, MessageSquare } from 'lucide-react';
 import { cn } from '../../utils';
 import { Badge } from './Core';
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ArrowUp, ArrowDown, TrendingUp, TrendingDown, Minus, Target, Zap, Users, DollarSign, Clock, BarChart, Heart, Star, Globe, Shield } from 'lucide-react';
+import { ArrowUp, ArrowDown, TrendingUp, TrendingDown, Minus, Target, Zap, Users, DollarSign, Clock, BarChart,   Star, Globe, Shield } from 'lucide-react';
 import { cn } from '../../utils';
 import { Badge } from './Core';
 
@@ -239,11 +239,9 @@ export function Stats({
   size = 'md',
   columns = 4,
   animate = true,
-  autoAnimate = true,
-  animationDuration = 2000,
+   animationDuration = 2000,
   className,
-  onComplete,
-}: StatsProps) {
+ }: StatsProps) {
   const gridCols = {
     1: 'grid-cols-1',
     2: 'grid-cols-1 sm:grid-cols-2',
@@ -418,8 +416,7 @@ export function SingleStat({
   target,
   progress,
 }: SingleStatProps) {
-  const sizeClass = sizeClasses[size];
-
+ 
   const items: StatItem[] = [
     {
       id: 'single',
