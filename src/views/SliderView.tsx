@@ -133,21 +133,21 @@ const SliderView = () => {
         <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
           <div className="space-y-8 max-w-2xl">
             <Slider
-              size="sm"
+              sliderSize="sm"
               label="Small Size"
               value={30}
               showValue={true}
             />
             
             <Slider
-              size="md"
+              sliderSize="md"
               label="Medium Size (Default)"
               value={50}
               showValue={true}
             />
             
             <Slider
-              size="lg"
+              sliderSize="lg"
               label="Large Size"
               value={70}
               showValue={true}
