@@ -1,16 +1,15 @@
-import  { useState } from 'react';
-import { Check, Clock, AlertCircle, Star,  User, Package, MessageSquare, TrendingUp, Truck, CreditCard, Download, ExternalLink } from 'lucide-react';
- import { Badge } from '../components/ui/Core';
+import { useState } from 'react';
+import { Check, Clock, AlertCircle, Star, User, Package, MessageSquare, TrendingUp, Truck, CreditCard, Download, ExternalLink } from 'lucide-react';
+import { Badge } from '../components/ui/Core';
 import { Button } from '../components/ui/Button';
 import { Switch } from '../components/ui/Form';
- import ComponentPreview from './ComponentPreview';
+import ComponentPreview from './ComponentPreview';
 import type { TimelineItem } from '../types';
 import { Timeline } from '../components/ui/Timeline';
 
 const TimelineView = () => {
   const [animate, setAnimate] = useState(true);
 
-  // Timeline data examples
   const orderTimeline: TimelineItem[] = [
     {
       id: 1,
@@ -19,7 +18,7 @@ const TimelineView = () => {
       timestamp: 'Today',
       time: '10:30 AM',
       type: 'success',
-      icon: <Check className="h-4 w-4" />,
+      icon: <Check className="h-3 w-3 sm:h-4 sm:w-4" />,
       tags: ['Completed'],
       completed: true,
     },
@@ -30,7 +29,7 @@ const TimelineView = () => {
       timestamp: 'Today',
       time: '10:35 AM',
       type: 'success',
-      icon: <CreditCard className="h-4 w-4" />,
+      icon: <CreditCard className="h-3 w-3 sm:h-4 sm:w-4" />,
       tags: ['Completed'],
       completed: true,
     },
@@ -41,7 +40,7 @@ const TimelineView = () => {
       timestamp: 'Today',
       time: '11:45 AM',
       type: 'primary',
-      icon: <Package className="h-4 w-4" />,
+      icon: <Package className="h-3 w-3 sm:h-4 sm:w-4" />,
       tags: ['In Progress'],
       completed: true,
       meta: { progress: 100 },
@@ -53,9 +52,9 @@ const TimelineView = () => {
       timestamp: 'Tomorrow',
       time: 'Estimated 9:00 AM',
       type: 'info',
-      icon: <Truck className="h-4 w-4" />,
+      icon: <Truck className="h-3 w-3 sm:h-4 sm:w-4" />,
       tags: ['Pending'],
-      action: <Button size="sm" variant="outline">Track</Button>,
+      action: <Button size="sm" variant="outline" className="text-xs">Track</Button>,
       meta: { location: 'New York, NY' },
     },
     {
@@ -65,7 +64,7 @@ const TimelineView = () => {
       timestamp: 'Dec 28',
       time: 'Estimated 2:00 PM',
       type: 'warning',
-      icon: <Truck className="h-4 w-4" />,
+      icon: <Truck className="h-3 w-3 sm:h-4 sm:w-4" />,
       tags: ['Scheduled'],
     },
     {
@@ -75,7 +74,7 @@ const TimelineView = () => {
       timestamp: 'Dec 28',
       time: 'By 8:00 PM',
       type: 'default',
-      icon: <Check className="h-4 w-4" />,
+      icon: <Check className="h-3 w-3 sm:h-4 sm:w-4" />,
       tags: ['Future'],
     },
   ];
@@ -119,7 +118,7 @@ const TimelineView = () => {
       type: 'info',
       user: 'Emma Davis',
       meta: { progress: 85 },
-      action: <Button size="sm" variant="outline">View Details</Button>,
+      action: <Button size="sm" variant="outline" className="text-xs">Details</Button>,
     },
     {
       id: 5,
@@ -184,7 +183,7 @@ const TimelineView = () => {
       timestamp: '9:00 AM',
       type: 'success',
       color: 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400',
-      icon: <TrendingUp className="h-4 w-4" />,
+      icon: <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4" />,
     },
     {
       id: 2,
@@ -193,7 +192,7 @@ const TimelineView = () => {
       timestamp: '11:30 AM',
       type: 'info',
       color: 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400',
-      icon: <User className="h-4 w-4" />,
+      icon: <User className="h-3 w-3 sm:h-4 sm:w-4" />,
     },
     {
       id: 3,
@@ -202,7 +201,7 @@ const TimelineView = () => {
       timestamp: '2:00 PM',
       type: 'warning',
       color: 'bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400',
-      icon: <Check className="h-4 w-4" />,
+      icon: <Check className="h-3 w-3 sm:h-4 sm:w-4" />,
     },
     {
       id: 4,
@@ -211,32 +210,30 @@ const TimelineView = () => {
       timestamp: '4:30 PM',
       type: 'primary',
       color: 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400',
-      icon: <Star className="h-4 w-4" />,
+      icon: <Star className="h-3 w-3 sm:h-4 sm:w-4" />,
     },
   ];
 
   const handleItemClick = (item: TimelineItem) => {
     console.log('Timeline item clicked:', item);
-    // You could show a modal or navigate to details
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6 sm:space-y-10">
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">Timeline</h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">Timeline</h1>
+        <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400">
           Visual representation of events in chronological order with multiple display modes.
         </p>
       </div>
 
-      <div className="flex items-center justify-end gap-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+      <div className="flex items-center justify-end p-3 sm:p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium">Animation</span>
+          <span className="text-sm">Animation</span>
           <Switch checked={animate} onCheckedChange={setAnimate} />
         </div>
       </div>
 
-      {/* Basic Vertical Timeline */}
       <ComponentPreview
         title="Vertical Timeline"
         description="Default vertical timeline with connectors and status indicators."
@@ -250,7 +247,6 @@ const TimelineView = () => {
     type: 'success',
     completed: true,
   },
-  // ... more items
 ];
 
 <Timeline
@@ -259,7 +255,7 @@ const TimelineView = () => {
   onItemClick={handleItemClick}
 />`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl">
           <Timeline
             items={orderTimeline}
             animate={animate}
@@ -268,7 +264,6 @@ const TimelineView = () => {
         </div>
       </ComponentPreview>
 
-      {/* Detailed Timeline */}
       <ComponentPreview
         title="Detailed Timeline"
         description="Rich timeline with user info, progress bars, and actions."
@@ -280,7 +275,7 @@ const TimelineView = () => {
   animate={true}
 />`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl">
           <Timeline
             items={projectTimeline}
             mode="detailed"
@@ -291,7 +286,6 @@ const TimelineView = () => {
         </div>
       </ComponentPreview>
 
-      {/* Horizontal Timeline */}
       <ComponentPreview
         title="Horizontal Timeline"
         description="Compact horizontal timeline suitable for headers or progress indicators."
@@ -304,7 +298,7 @@ const TimelineView = () => {
   className="p-6"
 />`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl">
           <Timeline
             items={compactTimeline}
             direction="horizontal"
@@ -315,7 +309,6 @@ const TimelineView = () => {
         </div>
       </ComponentPreview>
 
-      {/* Compact Timeline */}
       <ComponentPreview
         title="Compact Activity Timeline"
         description="Minimal timeline for activity feeds or notifications."
@@ -327,7 +320,7 @@ const TimelineView = () => {
   className="max-w-md"
 />`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl max-w-md mx-auto">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl max-w-md mx-auto">
           <Timeline
             items={activityTimeline}
             mode="compact"
@@ -338,7 +331,6 @@ const TimelineView = () => {
         </div>
       </ComponentPreview>
 
-      {/* Custom Timeline */}
       <ComponentPreview
         title="Custom Colored Timeline"
         description="Timeline with custom colors and icons for different event types."
@@ -351,14 +343,6 @@ const TimelineView = () => {
     color: 'bg-purple-100 text-purple-600',
     icon: <TrendingUp className="h-4 w-4" />,
   },
-  {
-    id: 2,
-    title: 'Team Meeting',
-    description: 'Weekly sprint planning',
-    timestamp: '11:30 AM',
-    color: 'bg-blue-100 text-blue-600',
-    icon: <User className="h-4 w-4" />,
-  },
 ];
 
 <Timeline
@@ -366,11 +350,11 @@ const TimelineView = () => {
   animate={true}
 />`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl">
           <Timeline
             items={activityTimeline.map(item => ({
               ...item,
-              action: <Button size="sm" variant="ghost" className="h-7"><ExternalLink size={12} /></Button>,
+              action: <Button size="sm" variant="ghost" className="h-6 sm:h-7"><ExternalLink size={10} className="sm:size-3" /></Button>,
             }))}
             animate={animate}
             onItemClick={handleItemClick}
@@ -378,7 +362,6 @@ const TimelineView = () => {
         </div>
       </ComponentPreview>
 
-      {/* Implementation Example */}
       <ComponentPreview
         title="Implementation Example"
         description="Complete code example showing how to implement different timeline variations."
@@ -398,67 +381,34 @@ const MyTimeline = () => {
       tags: ['Development'],
       completed: true,
     },
-    {
-      id: 2,
-      title: 'Code Review',
-      description: 'Peer review of the implemented feature',
-      timestamp: '2:00 PM',
-      time: 'Today',
-      type: 'info',
-      icon: <User size={16} />,
-      tags: ['Review'],
-      action: <Button size="sm">Approve</Button>,
-    },
-    {
-      id: 3,
-      title: 'Deployment',
-      description: 'Deploy to production environment',
-      timestamp: '4:00 PM',
-      time: 'Today',
-      type: 'warning',
-      icon: <Clock size={16} />,
-      tags: ['Operations'],
-    },
   ];
-
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-bold">Project Timeline</h2>
-      
-      {/* Basic vertical timeline */}
       <Timeline
         items={timelineData}
         animate={true}
         onItemClick={(item) => console.log('Clicked:', item)}
       />
-      
-      {/* Horizontal compact timeline */}
-      <Timeline
-        items={timelineData}
-        direction="horizontal"
-        mode="compact"
-        showConnectors={true}
-      />
     </div>
   );
 };`}
       >
-        <div className="p-6 bg-slate-50 dark:bg-slate-900/50 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-800">
+        <div className="p-4 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-800">
           <div className="text-center space-y-3">
-            <div className="h-10 w-10 mx-auto bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center">
-              <Clock className="text-primary-600 dark:text-primary-400" />
+            <div className="h-8 w-8 sm:h-10 sm:w-10 mx-auto bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center">
+              <Clock className="text-primary-600 dark:text-primary-400 size-4 sm:size-5" />
             </div>
-            <h3 className="font-medium text-slate-900 dark:text-slate-50">Multiple Display Modes</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+            <h3 className="font-medium text-slate-900 dark:text-slate-50 text-sm sm:text-base">Multiple Display Modes</h3>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
               The Timeline component supports vertical, horizontal, compact, and detailed modes.
-              Fully customizable with custom icons, colors, and actions.
             </p>
-            <div className="flex flex-wrap justify-center gap-2 pt-2">
-              <Badge variant="outline">Vertical</Badge>
-              <Badge variant="outline">Horizontal</Badge>
-              <Badge variant="outline">Alternate</Badge>
-              <Badge variant="outline">Compact</Badge>
-              <Badge variant="outline">Detailed</Badge>
+            <div className="flex flex-wrap justify-center gap-1 sm:gap-2 pt-2">
+              <Badge variant="outline" className="text-xs">Vertical</Badge>
+              <Badge variant="outline" className="text-xs">Horizontal</Badge>
+              <Badge variant="outline" className="text-xs">Alternate</Badge>
+              <Badge variant="outline" className="text-xs">Compact</Badge>
+              <Badge variant="outline" className="text-xs">Detailed</Badge>
             </div>
           </div>
         </div>

@@ -1,8 +1,8 @@
-import  { useState } from 'react';
-import { Grid, List,  Download, Heart, Share2, Camera, Image as ImageIcon } from 'lucide-react';
- import { Button } from '../components/ui/Button';
+import { useState } from 'react';
+import { Grid, List, Download, Heart, Share2, Camera, Image as ImageIcon } from 'lucide-react';
+import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Layout';
- import ComponentPreview from './ComponentPreview';
+import ComponentPreview from './ComponentPreview';
 import type { GalleryImage, GalleryLayout } from '../types';
 import { ImageGallery, JustifiedGrid } from '../components/ui/ImageGallery';
 
@@ -11,7 +11,6 @@ const ImageGalleryView = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const [likedImages, setLikedImages] = useState<Set<string | number>>(new Set());
 
-  // Sample images data
   const sampleImages: GalleryImage[] = [
     {
       id: 1,
@@ -169,7 +168,6 @@ const ImageGalleryView = () => {
 
   const handleDownload = (image: GalleryImage) => {
     console.log('Downloading image:', image.title);
-    // In a real app, you would trigger download here
     const link = document.createElement('a');
     link.href = image.src;
     link.download = `${image.title}.jpg`;
@@ -193,15 +191,14 @@ const ImageGalleryView = () => {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6 sm:space-y-10">
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">Image Gallery</h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">Image Gallery</h1>
+        <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400">
           Interactive image galleries with multiple layouts, lightbox view, and social features.
         </p>
       </div>
 
-      {/* Grid Layout */}
       <ComponentPreview
         title="Grid Gallery"
         description="Responsive grid layout with hover effects and interactive overlays."
@@ -232,9 +229,9 @@ const ImageGalleryView = () => {
   onShare={handleShare}
 />`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3 sm:gap-0">
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-50">
               Photo Gallery ({sampleImages.length} images)
             </h3>
             <div className="flex items-center gap-2">
@@ -243,16 +240,16 @@ const ImageGalleryView = () => {
                 variant={currentLayout === 'grid' ? 'primary' : 'outline'}
                 onClick={() => setCurrentLayout('grid')}
               >
-                <Grid size={16} className="mr-2" />
-                Grid
+                <Grid size={14} className="mr-1 sm:mr-2" />
+                <span className="text-xs sm:text-sm">Grid</span>
               </Button>
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => setCurrentLayout('masonry')}
               >
-                <List size={16} className="mr-2" />
-                Masonry
+                <List size={14} className="mr-1 sm:mr-2" />
+                <span className="text-xs sm:text-sm">Masonry</span>
               </Button>
             </div>
           </div>
@@ -271,17 +268,17 @@ const ImageGalleryView = () => {
             onLike={handleLike}
             onDownload={handleDownload}
             onShare={handleShare}
-            maxHeight={300}
+            maxHeight={250}
           />
           
           {selectedImage && (
-            <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
-              <div className="flex items-center justify-between">
+            <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-slate-50">
+                  <h4 className="font-semibold text-slate-900 dark:text-slate-50 text-sm sm:text-base">
                     Selected: {selectedImage.title}
                   </h4>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                     {selectedImage.description}
                   </p>
                 </div>
@@ -289,6 +286,7 @@ const ImageGalleryView = () => {
                   size="sm"
                   variant="outline"
                   onClick={() => setSelectedImage(null)}
+                  className="text-xs sm:text-sm"
                 >
                   Clear Selection
                 </Button>
@@ -298,7 +296,6 @@ const ImageGalleryView = () => {
         </div>
       </ComponentPreview>
 
-      {/* Carousel/Slideshow */}
       <ComponentPreview
         title="Carousel & Slideshow"
         description="Interactive carousel with autoplay, navigation controls, and thumbnails."
@@ -314,12 +311,12 @@ const ImageGalleryView = () => {
   onImageClick={handleImageClick}
 />`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-2">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl">
+          <div className="mb-4 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-50 mb-1 sm:mb-2">
               Featured Images Slideshow
             </h3>
-            <p className="text-slate-500 dark:text-slate-400">
+            <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400">
               Auto-playing carousel with navigation controls
             </p>
           </div>
@@ -334,39 +331,38 @@ const ImageGalleryView = () => {
             autoPlay={true}
             autoPlayInterval={3000}
             onImageClick={handleImageClick}
-            maxHeight={500}
+            maxHeight={400}
           />
           
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Card className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
+          <div className="mt-4 sm:mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            <Card className="p-3 sm:p-4 text-center">
+              <div className="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400">
                 {carouselImages.length}
               </div>
-              <div className="text-sm text-slate-500 dark:text-slate-400">Featured Images</div>
+              <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Featured Images</div>
             </Card>
-            <Card className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
+            <Card className="p-3 sm:p-4 text-center">
+              <div className="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400">
                 3s
               </div>
-              <div className="text-sm text-slate-500 dark:text-slate-400">Auto-play Interval</div>
+              <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Auto-play Interval</div>
             </Card>
-            <Card className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
+            <Card className="p-3 sm:p-4 text-center">
+              <div className="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400">
                 {likedImages.size}
               </div>
-              <div className="text-sm text-slate-500 dark:text-slate-400">Liked Images</div>
+              <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Liked Images</div>
             </Card>
-            <Card className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
+            <Card className="p-3 sm:p-4 text-center">
+              <div className="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400">
                 HD
               </div>
-              <div className="text-sm text-slate-500 dark:text-slate-400">Image Quality</div>
+              <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Image Quality</div>
             </Card>
           </div>
         </div>
       </ComponentPreview>
 
-      {/* Lightbox Gallery */}
       <ComponentPreview
         title="Lightbox Gallery"
         description="Click images to open full-screen lightbox with zoom, download, and social features."
@@ -386,12 +382,12 @@ const ImageGalleryView = () => {
   onShare={handleShare}
 />`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-2">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl">
+          <div className="mb-4 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-50 mb-1 sm:mb-2">
               Lightbox Gallery
             </h3>
-            <p className="text-slate-500 dark:text-slate-400">
+            <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400">
               Click on any image to open full-screen lightbox view
             </p>
           </div>
@@ -410,15 +406,15 @@ const ImageGalleryView = () => {
             onLike={handleLike}
             onDownload={handleDownload}
             onShare={handleShare}
-            maxHeight={250}
+            maxHeight={200}
           />
           
-          <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
-            <div className="flex items-center gap-4">
-              <Camera className="text-slate-400" />
+          <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+              <Camera className="text-slate-400 size-5 sm:size-6" />
               <div>
-                <h4 className="font-medium text-slate-900 dark:text-slate-50">Lightbox Features</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400">
+                <h4 className="font-medium text-slate-900 dark:text-slate-50 text-sm sm:text-base">Lightbox Features</h4>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                   Full-screen view • Keyboard navigation • Zoom in/out • Social sharing • Download options
                 </p>
               </div>
@@ -427,7 +423,6 @@ const ImageGalleryView = () => {
         </div>
       </ComponentPreview>
 
-      {/* Justified Grid */}
       <ComponentPreview
         title="Justified Grid (Masonry)"
         description="Masonry-style layout that adjusts to fill available space efficiently."
@@ -438,30 +433,29 @@ const ImageGalleryView = () => {
   onImageClick={handleImageClick}
 />`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-2">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl">
+          <div className="mb-4 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-50 mb-1 sm:mb-2">
               Justified Grid Layout
             </h3>
-            <p className="text-slate-500 dark:text-slate-400">
+            <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400">
               Masonry-style layout that fills space efficiently
             </p>
           </div>
           
           <JustifiedGrid
             images={sampleImages}
-            targetHeight={200}
+            targetHeight={180}
             gap={4}
             onImageClick={handleImageClick}
           />
           
-          <div className="mt-6 text-sm text-slate-500 dark:text-slate-400 text-center">
+          <div className="mt-4 sm:mt-6 text-xs sm:text-sm text-slate-500 dark:text-slate-400 text-center">
             Images automatically adjust to create balanced rows
           </div>
         </div>
       </ComponentPreview>
 
-      {/* Interactive Controls Example */}
       <ComponentPreview
         title="Interactive Controls"
         description="Gallery with custom controls for layout, sorting, and filtering."
@@ -470,14 +464,12 @@ const [columns, setColumns] = useState(4);
 const [sortBy, setSortBy] = useState('default');
 
 <div className="space-y-4">
-  {/* Control toolbar */}
   <div className="flex flex-wrap gap-4">
     <Button onClick={() => setLayout('grid')}>Grid</Button>
     <Button onClick={() => setLayout('masonry')}>Masonry</Button>
     <Select options={sortOptions} onChange={setSortBy} />
   </div>
   
-  {/* Gallery */}
   <ImageGallery
     images={sortedImages}
     layout={layout}
@@ -485,62 +477,48 @@ const [sortBy, setSortBy] = useState('default');
   />
 </div>`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-4">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl">
+          <div className="mb-4 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-50 mb-3 sm:mb-4">
               Gallery with Custom Controls
             </h3>
             
-            <div className="flex flex-wrap items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Layout:</span>
+            <div className="flex flex-col gap-3 p-3 sm:p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">Layout:</span>
                 <div className="flex gap-1">
                   <Button
                     size="sm"
                     variant={currentLayout === 'grid' ? 'primary' : 'outline'}
                     onClick={() => setCurrentLayout('grid')}
+                    className="text-xs sm:text-sm"
                   >
-                    <Grid size={14} />
+                    <Grid size={12} className="sm:size-4" />
                   </Button>
                   <Button
                     size="sm"
                     variant={currentLayout === 'masonry' ? 'primary' : 'outline'}
                     onClick={() => setCurrentLayout('masonry')}
+                    className="text-xs sm:text-sm"
                   >
-                    <List size={14} />
+                    <List size={12} className="sm:size-4" />
                   </Button>
                 </div>
               </div>
               
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Columns:</span>
-                <div className="flex gap-1">
-                  {[2, 3, 4, 6].map((col) => (
-                    <Button
-                      key={col}
-                      size="sm"
-                      variant="outline"
-                      onClick={() => console.log('Set columns to:', col)}
-                    >
-                      {col}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Actions:</span>
-                <div className="flex gap-1">
-                  <Button size="sm" variant="outline">
-                    <Download size={14} className="mr-1" />
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">Actions:</span>
+                <div className="flex flex-wrap gap-1">
+                  <Button size="sm" variant="outline" className="text-xs sm:text-sm">
+                    <Download size={12} className="mr-1 sm:size-4" />
                     Export
                   </Button>
-                  <Button size="sm" variant="outline">
-                    <Share2 size={14} className="mr-1" />
+                  <Button size="sm" variant="outline" className="text-xs sm:text-sm">
+                    <Share2 size={12} className="mr-1 sm:size-4" />
                     Share
                   </Button>
-                  <Button size="sm" variant="outline">
-                    <Heart size={14} className="mr-1" />
+                  <Button size="sm" variant="outline" className="text-xs sm:text-sm">
+                    <Heart size={12} className="mr-1 sm:size-4" />
                     {likedImages.size} Likes
                   </Button>
                 </div>
@@ -553,12 +531,11 @@ const [sortBy, setSortBy] = useState('default');
             layout={currentLayout}
             columns={4}
             showOverlay={true}
-            maxHeight={currentLayout === 'masonry' ? undefined : 250}
+            maxHeight={currentLayout === 'masonry' ? undefined : 200}
           />
         </div>
       </ComponentPreview>
 
-      {/* Photo Album Example */}
       <ComponentPreview
         title="Photo Album Example"
         description="Complete photo album implementation with stats and social features."
@@ -591,24 +568,24 @@ const [sortBy, setSortBy] = useState('default');
   </div>
 </Card>`}
       >
-        <div className="p-6 border border-slate-200 dark:border-slate-800 rounded-xl">
-          <Card className="p-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+        <div className="p-4 sm:p-6 border border-slate-200 dark:border-slate-800 rounded-lg sm:rounded-xl">
+          <Card className="p-4 sm:p-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 sm:mb-6 gap-3 sm:gap-4">
               <div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50">
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-50">
                   Nature Photography Collection
                 </h3>
-                <p className="text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-1">
                   {sampleImages.length} stunning landscape and nature photos
                 </p>
               </div>
-              <div className="flex items-center gap-3">
-                <Button variant="outline" size="sm">
-                  <Heart size={16} className="mr-2" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                  <Heart size={14} className="mr-1 sm:mr-2 sm:size-4" />
                   {likedImages.size} Likes
                 </Button>
-                <Button size="sm">
-                  <Download size={16} className="mr-2" />
+                <Button size="sm" className="text-xs sm:text-sm">
+                  <Download size={14} className="mr-1 sm:mr-2 sm:size-4" />
                   Download Album
                 </Button>
               </div>
@@ -625,26 +602,26 @@ const [sortBy, setSortBy] = useState('default');
               onLike={handleLike}
               onDownload={handleDownload}
               onShare={handleShare}
-              maxHeight={220}
+              maxHeight={180}
             />
             
-            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
+            <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-slate-200 dark:border-slate-800">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
-                    <Camera className="text-primary-600 dark:text-primary-400" />
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
+                    <Camera className="text-primary-600 dark:text-primary-400 size-4 sm:size-5" />
                   </div>
                   <div>
-                    <div className="font-medium text-slate-900 dark:text-slate-50">
+                    <div className="font-medium text-slate-900 dark:text-slate-50 text-sm sm:text-base">
                       Photography Studio
                     </div>
-                    <div className="text-sm text-slate-500 dark:text-slate-400">
+                    <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                       Professional nature photography
                     </div>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+                <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                   <div className="text-center">
                     <div className="font-semibold text-slate-900 dark:text-slate-50">
                       {sampleImages.length}
@@ -670,7 +647,6 @@ const [sortBy, setSortBy] = useState('default');
         </div>
       </ComponentPreview>
 
-      {/* Implementation Example */}
       <ComponentPreview
         title="Implementation Example"
         description="Complete code example showing how to implement the image gallery in your application."
@@ -709,7 +685,6 @@ const MyPhotoGallery = () => {
   };
 
   const handleDownload = (image: GalleryImage) => {
-    // Implement download logic
     const link = document.createElement('a');
     link.href = image.src;
     link.download = image.title || 'image';
@@ -750,17 +725,17 @@ const MyPhotoGallery = () => {
   );
 };`}
       >
-        <div className="p-6 bg-slate-50 dark:bg-slate-900/50 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-800">
+        <div className="p-4 sm:p-6 bg-slate-50 dark:bg-slate-900/50 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-800">
           <div className="text-center space-y-3">
-            <div className="h-10 w-10 mx-auto bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center">
-              <ImageIcon className="text-primary-600 dark:text-primary-400" />
+            <div className="h-8 w-8 sm:h-10 sm:w-10 mx-auto bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center">
+              <ImageIcon className="text-primary-600 dark:text-primary-400 size-4 sm:size-5" />
             </div>
-            <h3 className="font-medium text-slate-900 dark:text-slate-50">Feature-Rich Image Gallery</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+            <h3 className="font-medium text-slate-900 dark:text-slate-50 text-sm sm:text-base">Feature-Rich Image Gallery</h3>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
               The Image Gallery component supports multiple layouts, lightbox view, zoom functionality,
               social features, keyboard navigation, and responsive design.
             </p>
-            <div className="flex flex-wrap justify-center gap-2 pt-2">
+            <div className="flex flex-wrap justify-center gap-1 sm:gap-2 pt-2">
               <span className="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Lightbox</span>
               <span className="text-xs px-2 py-1 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">Carousel</span>
               <span className="text-xs px-2 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">Masonry</span>

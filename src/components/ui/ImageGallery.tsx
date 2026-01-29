@@ -4,8 +4,6 @@ import { cn } from '../../utils';
 import { Button } from './Button';
 import type { GalleryImage, ImageGalleryProps, JustifiedGridProps } from '../../types';
 
-
-
 export function ImageGallery({
   images,
   layout = 'grid',
@@ -102,7 +100,6 @@ export function ImageGallery({
     setIsPlaying(!isPlaying);
   };
 
-  // Auto-play functionality
   useEffect(() => {
     if (isPlaying && (mode === 'slideshow' || lightboxOpen)) {
       intervalRef.current = window.setInterval(() => {
@@ -121,7 +118,6 @@ export function ImageGallery({
     };
   }, [isPlaying, mode, lightboxOpen, autoPlayInterval, handleNext]);
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!lightboxOpen) return;
@@ -162,27 +158,27 @@ export function ImageGallery({
 
     return (
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="absolute bottom-0 left-0 right-0 p-4">
+        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
           {showCaptions && (
             <div className="text-white">
-              <h3 className="font-semibold text-lg">{image.title || image.alt}</h3>
+              <h3 className="font-semibold text-sm sm:text-lg">{image.title || image.alt}</h3>
               {image.description && (
-                <p className="text-sm text-white/80 mt-1">{image.description}</p>
+                <p className="text-xs sm:text-sm text-white/80 mt-1">{image.description}</p>
               )}
             </div>
           )}
 
-          <div className="flex items-center justify-between mt-3">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-2 sm:mt-3 gap-2 sm:gap-0">
+            <div className="flex items-center gap-1 sm:gap-2">
               {enableLike && (
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="text-white hover:bg-white/20"
+                  className="text-white hover:bg-white/20 h-8 w-8 sm:h-9 sm:w-9"
                   onClick={(e) => handleLike(image, e)}
                 >
                   <Heart
-                    size={18}
+                    size={14}
                     className={likedImages.has(image.id) ? 'fill-red-500 text-red-500' : ''}
                   />
                 </Button>
@@ -192,10 +188,10 @@ export function ImageGallery({
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="text-white hover:bg-white/20"
+                  className="text-white hover:bg-white/20 h-8 w-8 sm:h-9 sm:w-9"
                   onClick={(e) => handleDownload(image, e)}
                 >
-                  <Download size={18} />
+                  <Download size={14} />
                 </Button>
               )}
 
@@ -203,10 +199,10 @@ export function ImageGallery({
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="text-white hover:bg-white/20"
+                  className="text-white hover:bg-white/20 h-8 w-8 sm:h-9 sm:w-9"
                   onClick={(e) => handleShare(image, e)}
                 >
-                  <Share2 size={18} />
+                  <Share2 size={14} />
                 </Button>
               )}
             </div>
@@ -234,7 +230,7 @@ export function ImageGallery({
       <div
         ref={galleryRef}
         className={cn(
-          'grid gap-4',
+          'grid gap-3 sm:gap-4',
           columnsClasses[columns],
           className
         )}
@@ -270,8 +266,8 @@ export function ImageGallery({
             {renderImageOverlay(image)}
 
             {showCaptions && !showOverlay && (
-              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
-                <h3 className="font-medium text-white text-sm truncate">
+              <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-gradient-to-t from-black/60 to-transparent">
+                <h3 className="font-medium text-white text-xs sm:text-sm truncate">
                   {image.title || image.alt}
                 </h3>
               </div>
@@ -285,7 +281,7 @@ export function ImageGallery({
   const renderCarouselLayout = () => {
     return (
       <div className={cn('relative', className)}>
-        <div className="relative overflow-hidden rounded-xl">
+        <div className="relative overflow-hidden rounded-lg sm:rounded-xl">
           <div
             className="flex transition-transform duration-500 ease-out"
             style={{
@@ -308,12 +304,12 @@ export function ImageGallery({
                   />
 
                   {showCaptions && (
-                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-                      <h3 className="text-xl font-semibold text-white">
+                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-gradient-to-t from-black/80 to-transparent">
+                      <h3 className="text-lg sm:text-xl font-semibold text-white">
                         {image.title || image.alt}
                       </h3>
                       {image.description && (
-                        <p className="text-white/80 mt-2">{image.description}</p>
+                        <p className="text-white/80 mt-1 sm:mt-2 text-sm sm:text-base">{image.description}</p>
                       )}
                     </div>
                   )}
@@ -328,40 +324,40 @@ export function ImageGallery({
             <Button
               size="icon"
               variant="secondary"
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm hover:bg-white"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm hover:bg-white h-8 w-8 sm:h-10 sm:w-10"
               onClick={handlePrevious}
             >
-              <ChevronLeft size={20} />
+              <ChevronLeft size={16} className="sm:size-5" />
             </Button>
 
             <Button
               size="icon"
               variant="secondary"
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm hover:bg-white"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm hover:bg-white h-8 w-8 sm:h-10 sm:w-10"
               onClick={handleNext}
             >
-              <ChevronRight size={20} />
+              <ChevronRight size={16} className="sm:size-5" />
             </Button>
 
             {mode === 'slideshow' && (
               <Button
                 size="icon"
                 variant="secondary"
-                className="absolute top-4 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-sm hover:bg-white"
+                className="absolute top-3 sm:top-4 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-sm hover:bg-white h-8 w-8 sm:h-10 sm:w-10"
                 onClick={togglePlay}
               >
-                {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+                {isPlaying ? <Pause size={16} className="sm:size-5" /> : <Play size={16} className="sm:size-5" />}
               </Button>
             )}
 
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1 sm:gap-2">
               {images.map((_, index) => (
                 <button
                   key={index}
                   className={cn(
-                    'w-2 h-2 rounded-full transition-all',
+                    'w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all',
                     index === currentIndex
-                      ? 'bg-white w-6'
+                      ? 'bg-white w-4 sm:w-6'
                       : 'bg-white/50 hover:bg-white/80'
                   )}
                   onClick={() => setCurrentIndex(index)}
@@ -372,12 +368,12 @@ export function ImageGallery({
         )}
 
         {showThumbnails && images.length > 1 && (
-          <div className="mt-4 flex gap-2 overflow-x-auto py-2">
+          <div className="mt-3 sm:mt-4 flex gap-1 sm:gap-2 overflow-x-auto py-1 sm:py-2">
             {images.map((image, index) => (
               <button
                 key={image.id}
                 className={cn(
-                  'flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all',
+                  'flex-shrink-0 overflow-hidden rounded border-2 transition-all',
                   index === currentIndex
                     ? 'border-primary-500'
                     : 'border-transparent hover:border-slate-300'
@@ -387,7 +383,7 @@ export function ImageGallery({
                 <img
                   src={image.thumbnail || image.src}
                   alt={image.alt}
-                  className="h-20 w-32 object-cover"
+                  className="h-12 w-16 sm:h-16 sm:w-24 object-cover"
                 />
               </button>
             ))}
@@ -403,24 +399,24 @@ export function ImageGallery({
     const currentImage = images[currentIndex];
 
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm p-2 sm:p-4">
         <Button
           size="icon"
           variant="ghost"
-          className="absolute top-4 right-4 text-white hover:bg-white/20"
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white hover:bg-white/20 h-8 w-8 sm:h-10 sm:w-10"
           onClick={() => setLightboxOpen(false)}
         >
-          <X size={24} />
+          <X size={18} className="sm:size-6" />
         </Button>
 
-        <div className="relative w-full h-full flex items-center justify-center p-4">
+        <div className="relative w-full h-full flex items-center justify-center">
           <Button
             size="icon"
             variant="ghost"
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20"
+            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 h-8 w-8 sm:h-10 sm:w-10"
             onClick={handlePrevious}
           >
-            <ChevronLeft size={32} />
+            <ChevronLeft size={20} className="sm:size-8" />
           </Button>
 
           <div className="relative max-w-7xl max-h-[90vh] overflow-hidden">
@@ -435,18 +431,18 @@ export function ImageGallery({
             />
 
             {showCaptions && (
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 to-transparent">
-                <h3 className="text-2xl font-semibold text-white">
+              <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-gradient-to-t from-black/90 to-transparent">
+                <h3 className="text-lg sm:text-2xl font-semibold text-white">
                   {currentImage.title || currentImage.alt}
                 </h3>
                 {currentImage.description && (
-                  <p className="text-white/80 mt-2">{currentImage.description}</p>
+                  <p className="text-white/80 mt-1 sm:mt-2 text-sm sm:text-base">{currentImage.description}</p>
                 )}
-                <div className="flex items-center gap-4 mt-4">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-2 sm:mt-4">
                   {currentImage.tags?.map((tag, i) => (
                     <span
                       key={i}
-                      className="px-3 py-1 text-sm bg-white/20 text-white rounded-full backdrop-blur-sm"
+                      className="px-2 py-1 text-xs sm:text-sm bg-white/20 text-white rounded-full backdrop-blur-sm"
                     >
                       {tag}
                     </span>
@@ -459,71 +455,70 @@ export function ImageGallery({
           <Button
             size="icon"
             variant="ghost"
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20"
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 h-8 w-8 sm:h-10 sm:w-10"
             onClick={handleNext}
           >
-            <ChevronRight size={32} />
+            <ChevronRight size={20} className="sm:size-8" />
           </Button>
         </div>
 
-        {/* Lightbox controls */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-black/50 backdrop-blur-sm rounded-full px-4 py-2">
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1.5 sm:px-4 sm:py-2">
           {enableZoom && (
             <>
               <Button
                 size="icon"
                 variant="ghost"
-                className="text-white hover:bg-white/20"
+                className="text-white hover:bg-white/20 h-7 w-7 sm:h-9 sm:w-9"
                 onClick={handleZoomOut}
                 disabled={zoomLevel <= 1}
               >
-                <ZoomOut size={20} />
+                <ZoomOut size={16} className="sm:size-5" />
               </Button>
 
               <Button
                 size="icon"
                 variant="ghost"
-                className="text-white hover:bg-white/20"
+                className="text-white hover:bg-white/20 h-7 w-7 sm:h-9 sm:w-9"
                 onClick={handleResetZoom}
               >
-                <RotateCw size={20} />
+                <RotateCw size={16} className="sm:size-5" />
               </Button>
 
               <Button
                 size="icon"
                 variant="ghost"
-                className="text-white hover:bg-white/20"
+                className="text-white hover:bg-white/20 h-7 w-7 sm:h-9 sm:w-9"
                 onClick={handleZoomIn}
                 disabled={zoomLevel >= 3}
               >
-                <ZoomIn size={20} />
+                <ZoomIn size={16} className="sm:size-5" />
               </Button>
 
-              <div className="text-white text-sm mx-2">
+              <div className="text-white text-xs sm:text-sm mx-1 sm:mx-2">
                 {Math.round(zoomLevel * 100)}%
               </div>
             </>
           )}
 
-          <div className="h-6 w-px bg-white/30" />
+          <div className="h-4 sm:h-6 w-px bg-white/30" />
 
           <Button
             size="icon"
             variant="ghost"
-            className="text-white hover:bg-white/20"
+            className="text-white hover:bg-white/20 h-7 w-7 sm:h-9 sm:w-9"
             onClick={togglePlay}
           >
-            {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+            {isPlaying ? <Pause size={16} className="sm:size-5" /> : <Play size={16} className="sm:size-5" />}
           </Button>
 
           {enableDownload && (
             <Button
               size="icon"
               variant="ghost"
-              className="text-white hover:bg-white/20"
+              className="text-white hover:bg-white/20 h-7 w-7 sm:h-9 sm:w-9"
               onClick={(e) => handleDownload(currentImage, e)}
             >
-              <Download size={20} />
+              <Download size={16} className="sm:size-5" />
             </Button>
           )}
 
@@ -531,12 +526,12 @@ export function ImageGallery({
             <Button
               size="icon"
               variant="ghost"
-              className="text-white hover:bg-white/20"
+              className="text-white hover:bg-white/20 h-7 w-7 sm:h-9 sm:w-9"
               onClick={(e) => handleLike(currentImage, e)}
             >
               <Heart
-                size={20}
-                className={likedImages.has(currentImage.id) ? 'fill-red-500 text-red-500' : ''}
+                size={16}
+                className={cn(likedImages.has(currentImage.id) ? 'fill-red-500 text-red-500' : '', 'sm:size-5')}
               />
             </Button>
           )}
@@ -545,22 +540,21 @@ export function ImageGallery({
             <Button
               size="icon"
               variant="ghost"
-              className="text-white hover:bg-white/20"
+              className="text-white hover:bg-white/20 h-7 w-7 sm:h-9 sm:w-9"
               onClick={(e) => handleShare(currentImage, e)}
             >
-              <Share2 size={20} />
+              <Share2 size={16} className="sm:size-5" />
             </Button>
           )}
         </div>
 
-        {/* Thumbnail strip */}
         {showThumbnails && (
-          <div className="absolute bottom-32 left-1/2 -translate-x-1/2 flex gap-2 max-w-4xl overflow-x-auto py-2 px-4">
+          <div className="absolute bottom-20 sm:bottom-32 left-1/2 -translate-x-1/2 flex gap-1 sm:gap-2 max-w-4xl overflow-x-auto py-1 sm:py-2 px-2 sm:px-4">
             {images.map((image, index) => (
               <button
                 key={image.id}
                 className={cn(
-                  'flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all',
+                  'flex-shrink-0 overflow-hidden rounded border-2 transition-all',
                   index === currentIndex
                     ? 'border-white'
                     : 'border-transparent hover:border-white/50'
@@ -570,20 +564,18 @@ export function ImageGallery({
                 <img
                   src={image.thumbnail || image.src}
                   alt={image.alt}
-                  className="h-16 w-24 object-cover"
+                  className="h-10 w-14 sm:h-16 sm:w-24 object-cover"
                 />
               </button>
             ))}
           </div>
         )}
 
-        {/* Image counter */}
-        <div className="absolute top-4 left-4 text-white/80 text-sm">
+        <div className="absolute top-2 sm:top-4 left-2 sm:left-4 text-white/80 text-xs sm:text-sm">
           {currentIndex + 1} / {images.length}
         </div>
 
-        {/* Keyboard shortcuts hint */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/60 text-sm hidden lg:block">
+        <div className="absolute top-2 sm:top-4 left-1/2 -translate-x-1/2 text-white/60 text-xs sm:text-sm hidden lg:block text-center">
           Use ← → arrows, ESC to close, Space to play/pause
         </div>
       </div>
@@ -615,9 +607,6 @@ export function ImageGallery({
     </>
   );
 }
-
-// Justified Grid Component
-
 
 export function JustifiedGrid({
   images,
