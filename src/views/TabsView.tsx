@@ -3,8 +3,7 @@ import { Tabs, TabsList, TabTrigger, TabContent } from '../components/ui/Tabs';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Core';
 import { Card } from '../components/ui/Layout';
-import { Switch } from '../components/ui/Form';
-import ComponentPreview from './ComponentPreview';
+ import ComponentPreview from './ComponentPreview';
 
 const TabsView = () => {
   return (
