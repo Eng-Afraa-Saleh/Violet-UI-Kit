@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Check, Users, Clock, TrendingUp, BarChart, Filter, Plus, Download } from 'lucide-react';
+import  { useState } from 'react';
+import { Check, Users, Clock, TrendingUp, BarChart,  Plus, Download } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Layout';
 import { CardDetail, KanbanBoard } from '../components/ui/KanbanBoard';
@@ -199,10 +199,7 @@ const KanbanBoardView = () => {
     console.log('Card deleted', cardId);
   };
 
-  const handleCardClick = (card: KanbanCard) => {
-    setSelectedCard(card);
-    setIsCardDetailOpen(true);
-  };
+   
 
   const handleExport = () => {
     console.log('Exporting board data...');

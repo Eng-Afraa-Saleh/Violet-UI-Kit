@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, MoreVertical, Trash2, Edit, Copy, Check, X, GripVertical, Filter, Search, Users, Clock, Flag, Tag, MessageSquare, Paperclip, Eye } from 'lucide-react';
+import { Plus,  Trash2,  GripVertical, Search, Clock, Flag, Tag, MessageSquare, Paperclip } from 'lucide-react';
 import { cn } from '../../utils';
 import { Button } from './Button';
 import { Input } from './Core';
@@ -38,11 +38,9 @@ export function KanbanBoard({
   showSearch = true,
   onCardMove,
   onCardAdd,
-  onCardEdit,
-  onCardDelete,
+   onCardDelete,
   onColumnAdd,
-  onColumnEdit,
-  onColumnDelete,
+   onColumnDelete,
   className,
 }: KanbanBoardProps) {
   const [columns, setColumns] = useState<KanbanColumn[]>(initialColumns);
