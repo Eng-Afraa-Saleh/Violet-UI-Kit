@@ -310,8 +310,7 @@ export function BackgroundsGallery({
     showLabels = true,
     className,
     onBackgroundSelect,
-    onBackgroundCopy,
-}: BackgroundsGalleryProps) {
+ }: BackgroundsGalleryProps) {
     const gridCols = {
         2: 'grid-cols-1 sm:grid-cols-2',
         3: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
@@ -324,9 +323,6 @@ export function BackgroundsGallery({
         onBackgroundSelect?.(config);
     }, [onBackgroundSelect]);
 
-    const handleCopy = useCallback((config: BackgroundConfig) => {
-        onBackgroundCopy?.(config);
-    }, [onBackgroundCopy]);
 
     return (
         <div className={cn('space-y-4', className)}>

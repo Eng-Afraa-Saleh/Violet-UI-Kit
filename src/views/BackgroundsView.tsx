@@ -1,8 +1,7 @@
 import  { useState } from 'react';
 import { 
   Palette, 
-  Sparkles, 
-  Copy, 
+   Copy, 
   Check, 
   Download
  
