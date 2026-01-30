@@ -1,6 +1,14 @@
+import type { LucideIcon } from "lucide-react";
 import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
+export type SidebarCategory = "General" | "Data Display" | "Feedback" | "Navigation" | "Templates";
 
- 
+export interface SidebarItem {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  category: SidebarCategory;
+}
+
 export type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link';
 export type Size = 'sm' | 'md' | 'lg' | 'icon';
 

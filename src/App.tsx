@@ -1,7 +1,7 @@
-
+ 
 import './index.css'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   Layout, Type, MousePointer2, FormInput,
   MessageSquare, LayoutTemplate,
@@ -11,11 +11,11 @@ import {
   Table2Icon,
   TimerResetIcon,
   SlidersIcon,
-  ImageIcon
-
+  ImageIcon,
+  Search
 } from 'lucide-react';
 import { Switch } from './components/ui/Form';
-import { cn } from './utils';
+ import { cn } from './utils';
 import IntroView from './views/IntroView';
 import ButtonsView from './views/ButtonsView';
 import InputsView from './views/InputsView';
@@ -32,39 +32,63 @@ import TabsView from './views/TabsView';
 // import StatsView from './views/StatsView';
 import SliderView from './views/SliderView';
 import ImageGalleryView from './views/ImageGalleryView';
+import { Input } from './components/ui/Core';
 
 // --- Types ---
 type View = 'intro' | 'buttons' | 'inputs' | 'layout' | 'feedback' |
   'forms' | 'template' | 'creative-cards' | 'navigation' | 'chatbot' |
   'data-table' | 'time-line' | 'tabs' | 'stats' | 'slider' | 'image-gallery';
+
 // --- Sidebar ---
 const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme }: any) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  
   const menuItems = [
-    { id: 'intro', label: 'Introduction', icon: <Terminal size={18} /> },
-    { id: 'buttons', label: 'Buttons', icon: <MousePointer2 size={18} /> },
-    { id: 'inputs', label: 'Inputs & Data', icon: <Type size={18} /> },
-    { id: 'forms', label: 'Form Elements', icon: <FormInput size={18} /> },
-    { id: 'feedback', label: 'Feedback', icon: <MessageSquare size={18} /> },
-    { id: 'layout', label: 'Layout', icon: <Layout size={18} /> },
-    { id: 'navigation', label: 'Navigation', icon: <NavIcon size={18} /> },
-    { id: 'creative-cards', label: 'Creative Cards', icon: <Palette size={18} /> },
-    { id: 'chatbot', label: 'AI ChatBot', icon: <MessageSquare size={18} /> },
-    { id: 'template', label: 'Dashboard Template', icon: <LayoutTemplate size={18} /> },
-    { id: 'data-table', label: 'Data Table', icon: <Table2Icon size={18} /> },
-    { id: 'time-line', label: 'Time Line', icon: <TimerResetIcon size={18} /> },
-    { id: 'tabs', label: 'Tabs', icon: <Layout size={18} /> },
-    // { id: 'stats', label: 'Stats', icon: <Layout size={18} /> },
-    { id: 'slider', label: 'Slider', icon: <SlidersIcon size={18} /> },
-    { id: 'image-gallery', label: 'Image Gallery', icon: <ImageIcon size={18} /> },
-
-
+    { id: 'intro', label: 'Introduction', icon: <Terminal size={18} />, category: "" },
+    { id: 'buttons', label: 'Buttons', icon: <MousePointer2 size={18} />, category: "General" },
+    { id: 'inputs', label: 'Inputs & Data', icon: <Type size={18} />, category: "General" },
+    { id: 'forms', label: 'Form Elements', icon: <FormInput size={18} />, category: "General" },
+    { id: 'feedback', label: 'Feedback', icon: <MessageSquare size={18} />, category: "Feedback" },
+    { id: 'layout', label: 'Layout', icon: <Layout size={18} />, category: "General" },
+    { id: 'navigation', label: 'Navigation', icon: <NavIcon size={18} />, category: "Navigation" },
+    { id: 'creative-cards', label: 'Creative Cards', icon: <Palette size={18} />, category: "Data Display" },
+    { id: 'chatbot', label: 'AI ChatBot', icon: <MessageSquare size={18} />, category: "Templates" },
+    { id: 'template', label: 'Dashboard Template', icon: <LayoutTemplate size={18} />, category: "Templates" },
+    { id: 'data-table', label: 'Data Table', icon: <Table2Icon size={18} />, category: "Data Display" },
+    { id: 'time-line', label: 'Time Line', icon: <TimerResetIcon size={18} />, category: "Data Display" },
+    { id: 'tabs', label: 'Tabs', icon: <Layout size={18} />, category: "Navigation" },
+    // { id: 'stats', label: 'Stats', icon: <Layout size={18} />, category: "Data Display" },
+    { id: 'slider', label: 'Slider', icon: <SlidersIcon size={18} />, category: "Data Display" },
+    { id: 'image-gallery', label: 'Image Gallery', icon: <ImageIcon size={18} />, category: "Data Display" },
   ];
+
+  const filteredItems = useMemo(() => {
+    if (!searchQuery.trim()) return menuItems;
+    const query = searchQuery.toLowerCase();
+    return menuItems.filter(item => 
+      item.label.toLowerCase().includes(query) || 
+      item.category.toLowerCase().includes(query)
+    );
+  }, [menuItems, searchQuery]);
+
+  const groupedItems = useMemo(() => {
+    const groups: Record<string, typeof menuItems> = {};
+    filteredItems.forEach(item => {
+      if (!groups[item.category]) {
+        groups[item.category] = [];
+      }
+      groups[item.category].push(item);
+    });
+    return groups;
+  }, [filteredItems]);
+
+  const categories = Object.keys(groupedItems).sort();
 
   return (
     <>
       <div className={cn("fixed inset-0 z-20 bg-black/50 lg:hidden", isOpen ? "block" : "hidden")} onClick={() => setIsOpen(false)} />
       <aside className={cn(
-        "fixed left-0 top-0 z-50 h-screen w-64 flex-col border-r border-slate-200 bg-white transition-transform duration-300 dark:bg-slate-950 dark:border-slate-800 lg:translate-x-0 overflow-y-scroll",
+        "fixed left-0 top-0 z-50 h-screen w-64 flex-col border-r border-slate-200 bg-white transition-transform duration-300 dark:bg-slate-950 dark:border-slate-800 lg:translate-x-0 overflow-y-auto",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         <div className="flex h-16 items-center justify-between border-b border-slate-200 px-6 dark:border-slate-800">
@@ -77,24 +101,39 @@ const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme 
         </div>
 
         <div className="flex-1 overflow-y-auto p-4">
-          {/* <div className="mb-4 px-2">
-            <Input placeholder="Search components..." leftIcon={<Search size={14} />} className="h-9" />
-          </div> */}
-          <nav className="space-y-1">
-            {menuItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => { setView(item.id); setIsOpen(false); }}
-                className={cn(
-                  "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                  currentView === item.id
-                    ? "bg-primary-50 text-primary-700 dark:bg-primary-900/20 dark:text-primary-300"
-                    : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-900"
-                )}
-              >
-                {item.icon}
-                {item.label}
-              </button>
+          <div className="mb-4 px-2">
+            <Input 
+              placeholder="Search components..." 
+              leftIcon={<Search size={14} />} 
+              className="h-9" 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <nav className="space-y-6">
+            {categories.map((category) => (
+              <div key={category} className="space-y-2">
+                <div className="px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  {category}
+                </div>
+                <div className="space-y-1">
+                  {groupedItems[category].map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => { setView(item.id); setIsOpen(false); }}
+                      className={cn(
+                        "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                        currentView === item.id
+                          ? "bg-primary-50 text-primary-700 dark:bg-primary-900/20 dark:text-primary-300"
+                          : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-900"
+                      )}
+                    >
+                      {item.icon}
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             ))}
           </nav>
         </div>
@@ -109,6 +148,7 @@ const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme 
     </>
   );
 };
+
 export default function App() {
   const [currentView, setCurrentView] = useState<View>('intro');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -137,8 +177,6 @@ export default function App() {
       // case 'stats': return <StatsView />;
       case 'slider': return < SliderView />;
       case 'image-gallery': return <ImageGalleryView />;
-
-
 
       default: return <IntroView />;
     }
