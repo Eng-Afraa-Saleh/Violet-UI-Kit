@@ -14,7 +14,10 @@ import {
     Hexagon,
     Radio,
     Play,
-    Pause
+    Pause,
+    Box,         
+    CircleDot,   
+    Shapes
 } from 'lucide-react';
 import { cn } from '../../utils';
 import { Button } from './Button';
@@ -42,6 +45,9 @@ const patternIcons: Record<BackgroundPattern, React.ReactNode> = {
     hexagon: <Hexagon className="h-4 w-4" />,
     noise: <Sparkles className="h-4 w-4" />,
     abstract: <Zap className="h-4 w-4" />,
+    cubes: <Box className="h-4 w-4" />,
+    spheres: <CircleDot className="h-4 w-4" />,
+    memphis: <Shapes className="h-4 w-4" />,
 };
 
 const patternNames: Record<BackgroundPattern, string> = {
@@ -57,6 +63,9 @@ const patternNames: Record<BackgroundPattern, string> = {
     hexagon: 'Hexagon',
     noise: 'Noise',
     abstract: 'Abstract',
+    cubes: '3D Cubes',
+    spheres: '3D Spheres',
+    memphis: 'Memphis',
 };
 
 const sizeClasses = {
@@ -109,6 +118,43 @@ const getPatternBackgroundImage = (config: BackgroundConfig): string | undefined
                     <path d='M0 50 Q 25 25, 50 50 T 100 50' stroke='${primaryColor}' fill='none' stroke-width='1'/>
                     <path d='M0 30 Q 25 5, 50 30 T 100 30' stroke='${primaryColor}' fill='none' stroke-width='1' opacity='0.5'/>
                     <path d='M0 70 Q 25 45, 50 70 T 100 70' stroke='${primaryColor}' fill='none' stroke-width='1' opacity='0.5'/>
+                </svg>
+            `);
+
+            case 'cubes':
+            // نستخدم درجات شفافية مختلفة لنفس اللون لخلق وهم الإضاءة والظل
+            return svgToDataUri(`
+                <svg width='${size}' height='${size * 1.15}' viewBox='0 0 30 35' xmlns='http://www.w3.org/2000/svg'>
+                    <g opacity='0.5'>
+                        <path d='M15 0 L29.5 8.5 L15 17 L0.5 8.5 Z' fill='${primaryColor}' opacity='0.8'/>
+                        <path d='M15 17 L29.5 8.5 L29.5 25.5 L15 34 Z' fill='${primaryColor}' opacity='0.4'/>
+                        <path d='M0.5 8.5 L15 17 L15 34 L0.5 25.5 Z' fill='${primaryColor}' opacity='0.6'/>
+                    </g>
+                </svg>
+            `);
+            case 'spheres':
+            // نستخدم Radial Gradient داخل SVG لعمل كرة لامعة
+            return svgToDataUri(`
+                <svg width='${size}' height='${size}' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
+                    <defs>
+                        <radialGradient id='sphereGrad' cx='30%' cy='30%' r='70%'>
+                            <stop offset='0%' stop-color='${primaryColor}' stop-opacity='0.8' />
+                            <stop offset='100%' stop-color='${primaryColor}' stop-opacity='0.1' />
+                        </radialGradient>
+                    </defs>
+                    <circle cx='50' cy='50' r='30' fill='url(#sphereGrad)' />
+                </svg>
+            `);
+            case 'memphis':
+            return svgToDataUri(`
+                <svg width='${size * 2}' height='${size * 2}' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
+                    <g fill='none' stroke='${primaryColor}' stroke-width='2'>
+                        <path d='M10 10 L20 20 L30 10 L40 20' opacity='0.6'/>
+                        <circle cx='70' cy='20' r='5' opacity='0.8' />
+                        <path d='M20 70 L30 50 L40 70 Z' opacity='0.7' />
+                        <path d='M70 60 L70 80 M60 70 L80 70' opacity='0.5' />
+                        <path d='M80 40 A 10 10 0 0 1 80 60' opacity='0.6' />
+                    </g>
                 </svg>
             `);
 

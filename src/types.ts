@@ -483,7 +483,10 @@ export interface KanbanBoardProps {
   | 'bubbles' 
   | 'hexagon' 
   | 'noise' 
-  | 'abstract';
+  | 'abstract'
+  | 'cubes'   
+  | 'spheres'  
+  | 'memphis'; 
 
 export type GradientType = 
   | 'linear' 

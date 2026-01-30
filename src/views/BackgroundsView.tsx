@@ -1,10 +1,11 @@
-import  { useState } from 'react';
-import { 
-  Palette, 
-   Copy, 
-  Check, 
-  Download
- 
+import { useState } from 'react';
+import {
+  Palette,
+  Copy,
+  Check,
+  Download,
+  Sparkles
+
 } from 'lucide-react';
 import { BackgroundsGallery, BackgroundGenerator, LiveBackground } from '../components/ui/Backgrounds';
 import { Button } from '../components/ui/Button';
@@ -17,7 +18,7 @@ const BackgroundsView = () => {
   const [selectedBackground, setSelectedBackground] = useState<BackgroundConfig | null>(null);
   const [copied, setCopied] = useState(false);
 
-   const gradientBackgrounds: BackgroundConfig[] = [
+  const gradientBackgrounds: BackgroundConfig[] = [
     {
       id: 1,
       name: 'Sunset Glow',
@@ -87,7 +88,49 @@ const BackgroundsView = () => {
       animationSpeed: 25,
     },
   ];
+  // داخل مكون BackgroundsView في ملف BackgroundsView.tsx
 
+  const creativeBackgrounds: BackgroundConfig[] = [
+    {
+      id: '3d-1',
+      name: 'Isometric Space',
+      pattern: 'cubes',
+      colors: ['#0f172a', '#38bdf8'], // أزرق غامق مع سماوي
+      gradient: {
+        type: 'linear',
+        stops: [],
+        size: 50, // حجم المكعبات
+      },
+      animated: true,
+      animationSpeed: 20,
+    },
+    {
+      id: '3d-2',
+      name: 'Soft Bubbles',
+      pattern: 'spheres',
+      colors: ['#fdf2f8', '#ec4899'], // وردي ناعم
+      gradient: {
+        type: 'radial',
+        stops: [],
+        size: 60, // حجم الكرات
+      },
+      animated: true,
+      animationSpeed: 15,
+    },
+    {
+      id: '3d-3',
+      name: 'Modern Memphis',
+      pattern: 'memphis',
+      colors: ['#ffffff', '#6366f1'], // أبيض مع بنفسجي
+      gradient: {
+        type: 'linear',
+        stops: [],
+        size: 40,
+      },
+      animated: true,
+      animationSpeed: 25,
+    }
+  ];
   const patternBackgrounds: BackgroundConfig[] = [
     {
       id: 5,
@@ -167,7 +210,7 @@ const BackgroundsView = () => {
     },
   ];
 
- 
+
   const handleBackgroundSelect = (config: BackgroundConfig) => {
     setSelectedBackground(config);
   };
@@ -181,13 +224,13 @@ const BackgroundsView = () => {
 
   const generateBackgroundCSS = (config: BackgroundConfig): string => {
     let css = '';
-    
+
     switch (config.pattern) {
       case 'gradient':
         if (config.gradient) {
           const { type, stops, angle = 45 } = config.gradient;
           const gradientStops = stops.map(stop => `${stop.color} ${stop.position}%`).join(', ');
-          
+
           switch (type) {
             case 'linear':
               css = `background: linear-gradient(${angle}deg, ${gradientStops});`;
@@ -207,7 +250,7 @@ const BackgroundsView = () => {
           }
         }
         break;
-        
+
       case 'grid':
         css = `
           background-color: ${config.colors[0]};
@@ -217,7 +260,7 @@ const BackgroundsView = () => {
           background-size: ${config.gradient?.size || 20}px ${config.gradient?.size || 20}px;
         `;
         break;
-        
+
       case 'dots':
         css = `
           background-color: ${config.colors[0]};
@@ -225,11 +268,11 @@ const BackgroundsView = () => {
           background-size: ${config.gradient?.size || 20}px ${config.gradient?.size || 20}px;
         `;
         break;
-        
+
       default:
         css = `background: ${config.colors[0]};`;
     }
-    
+
     return css;
   };
 
@@ -252,7 +295,7 @@ const BackgroundsView = () => {
             <span className="text-sm font-medium">Animation</span>
             <Switch checked={animate} onCheckedChange={setAnimate} />
           </div>
-          
+
           {selectedBackground && (
             <div className="flex items-center gap-2">
               <Button
@@ -263,7 +306,7 @@ const BackgroundsView = () => {
               >
                 {copied ? 'Copied!' : 'Copy CSS'}
               </Button>
-              
+
               <Button
                 size="sm"
                 variant="outline"
@@ -283,7 +326,7 @@ const BackgroundsView = () => {
             </div>
           )}
         </div>
-        
+
         <div className="text-sm text-slate-500">
           Click on any background to select it
         </div>
@@ -354,6 +397,24 @@ const gradientBackgrounds = [
         />
       </ComponentPreview>
 
+       <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+            <Sparkles className="h-5 w-5 text-purple-600" />
+          </div>
+          <div>
+            <h3 className="text-lg font-bold">Creative & 3D Patterns</h3>
+            <p className="text-sm text-slate-500">Playful isometric and geometric designs</p>
+          </div>
+        </div>
+
+        <BackgroundsGallery
+          backgrounds={creativeBackgrounds}
+          columns={3}
+          onBackgroundSelect={(bg) => setSelectedBackground(bg)}
+        />
+      </div>
+
       {/* Background Generator */}
       <ComponentPreview
         title="Background Generator"
@@ -419,6 +480,8 @@ const [customBackground, setCustomBackground] = useState();
           </div>
         </ComponentPreview>
       )}
+
+
 
       {/* Implementation Example */}
       <ComponentPreview
