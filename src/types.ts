@@ -417,3 +417,55 @@ export interface Message {
   role: 'user' | 'assistant' | 'system';
   content: string;
 }
+
+//---Kanban Board---
+export type CardStatus = 'todo' | 'in-progress' | 'review' | 'done';
+export type CardPriority = 'low' | 'medium' | 'high' | 'critical';
+export type CardType = 'task' | 'bug' | 'feature' | 'improvement';
+
+export interface KanbanCard {
+  id: string;
+  title: string;
+  description?: string;
+  status: CardStatus;
+  priority: CardPriority;
+  type: CardType;
+  assignee?: {
+    id: string;
+    name: string;
+    avatar?: string;
+  };
+  dueDate?: string;
+  tags?: string[];
+  comments?: number;
+  attachments?: number;
+  watchers?: number;
+  estimate?: string; // e.g., "3h", "1d"
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface KanbanColumn {
+  id: string;
+  title: string;
+  status: CardStatus;
+  color: string;
+  wipLimit?: number; // Work in Progress limit
+  cardIds: string[];
+}
+
+export interface KanbanBoardProps {
+  columns?: KanbanColumn[];
+  cards?: KanbanCard[];
+  editable?: boolean;
+  showFilters?: boolean;
+  showSearch?: boolean;
+  onCardMove?: (cardId: string, fromColumn: string, toColumn: string, position: number) => void;
+  onCardAdd?: (columnId: string, card: Omit<KanbanCard, 'id' | 'createdAt' | 'updatedAt'>) => void;
+  onCardEdit?: (cardId: string, updates: Partial<KanbanCard>) => void;
+  onCardDelete?: (cardId: string) => void;
+  onColumnAdd?: (title: string, status: CardStatus) => void;
+  onColumnEdit?: (columnId: string, updates: Partial<KanbanColumn>) => void;
+  onColumnDelete?: (columnId: string) => void;
+  className?: string;
+}

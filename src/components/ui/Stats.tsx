@@ -222,15 +222,15 @@ export function Stats({
     const isGlass = variant === 'glass';
 
     const iconColor = isGradient || isGlass 
-      ? 'text-white' 
+      ? 'text-black dark:text-white' 
       : item.color || 'text-primary-600 dark:text-primary-400';
 
     const textColor = isGradient || isGlass
-      ? 'text-white'
+      ? 'text-black dark:text-white'
       : 'text-slate-900 dark:text-slate-50';
 
     const descColor = isGradient || isGlass
-      ? 'text-white/80'
+      ? 'text-black/80 dark:text-white/80'
       : 'text-slate-500 dark:text-slate-400';
 
     return (
@@ -244,7 +244,7 @@ export function Stats({
         )}
         style={{ animationDelay: `${index * 100}ms` }}
       >
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between text-black ">
           <div>
             <div className={cn('flex items-center gap-2', sizeClass.title)}>
               {item.icon ? (

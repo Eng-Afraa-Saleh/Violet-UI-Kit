@@ -228,7 +228,7 @@ const StatsView = () => {
         </p>
       </div>
 
-      <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+      <div className="flex flex-wrap items-center justify-between p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium">Animation</span>

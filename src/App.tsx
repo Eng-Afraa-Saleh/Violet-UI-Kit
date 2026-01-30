@@ -12,7 +12,8 @@ import {
   TimerResetIcon,
   SlidersIcon,
   ImageIcon,
-  Search
+  Search,
+  FolderKanban
 } from 'lucide-react';
 import { Switch } from './components/ui/Form';
  import { cn } from './utils';
@@ -29,15 +30,16 @@ import DashboardTemplate from './views/DashboardTemplate';
 import DataTableView from './views/DataTableView';
 import TimelineView from './views/TimelineView';
 import TabsView from './views/TabsView';
-// import StatsView from './views/StatsView';
-import SliderView from './views/SliderView';
+ import SliderView from './views/SliderView';
 import ImageGalleryView from './views/ImageGalleryView';
 import { Input } from './components/ui/Core';
-
+import KanbanBoardView from './views/KanbanBoardView';
+import StatsView from './views/StatsView';
+ 
 // --- Types ---
 type View = 'intro' | 'buttons' | 'inputs' | 'layout' | 'feedback' |
   'forms' | 'template' | 'creative-cards' | 'navigation' | 'chatbot' |
-  'data-table' | 'time-line' | 'tabs' | 'stats' | 'slider' | 'image-gallery';
+  'data-table' | 'time-line' | 'tabs' | 'stats' | 'slider' | 'image-gallery'|'kanban-board';
 
 // --- Sidebar ---
 const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme }: any) => {
@@ -57,9 +59,11 @@ const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme 
     { id: 'data-table', label: 'Data Table', icon: <Table2Icon size={18} />, category: "Data Display" },
     { id: 'time-line', label: 'Time Line', icon: <TimerResetIcon size={18} />, category: "Data Display" },
     { id: 'tabs', label: 'Tabs', icon: <Layout size={18} />, category: "Navigation" },
-    // { id: 'stats', label: 'Stats', icon: <Layout size={18} />, category: "Data Display" },
+   { id: 'stats', label: 'Stats', icon: <Layout size={18} />, category: "Data Display" },
     { id: 'slider', label: 'Slider', icon: <SlidersIcon size={18} />, category: "Data Display" },
     { id: 'image-gallery', label: 'Image Gallery', icon: <ImageIcon size={18} />, category: "Data Display" },
+
+    { id: 'kanban-board', label: 'Kanban Board', icon: <FolderKanban size={18} />, category: "Data Display" },
   ];
 
   const filteredItems = useMemo(() => {
@@ -174,9 +178,10 @@ export default function App() {
       case 'data-table': return <DataTableView />;
       case 'time-line': return <TimelineView />;
       case 'tabs': return <TabsView />;
-      // case 'stats': return <StatsView />;
+       case 'stats': return <StatsView />;
       case 'slider': return < SliderView />;
       case 'image-gallery': return <ImageGalleryView />;
+      case 'kanban-board' : return <KanbanBoardView/>;
 
       default: return <IntroView />;
     }
