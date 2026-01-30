@@ -499,39 +499,6 @@ const AppBackground = () => {
         </div>
       </ComponentPreview>
 
-      {/* Background Usage Tips */}
-      {/* <div className="p-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800/30">
-        <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-200 mb-3 flex items-center gap-2">
-          <Sparkles className="h-5 w-5" />
-          Pro Tips
-        </h3>
-        <ul className="space-y-2 text-sm text-blue-700 dark:text-blue-300">
-          <li className="flex items-start gap-2">
-            <div className="h-5 w-5 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mt-0.5">
-              <span className="text-xs font-bold">1</span>
-            </div>
-            <span>Use subtle animations for background elements to avoid distracting users</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <div className="h-5 w-5 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mt-0.5">
-              <span className="text-xs font-bold">2</span>
-            </div>
-            <span>Combine patterns with blur effects for modern glassmorphism designs</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <div className="h-5 w-5 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mt-0.5">
-              <span className="text-xs font-bold">3</span>
-            </div>
-            <span>Export CSS code directly from the gallery to use in your projects</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <div className="h-5 w-5 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mt-0.5">
-              <span className="text-xs font-bold">4</span>
-            </div>
-            <span>For performance, prefer CSS gradients over image backgrounds</span>
-          </li>
-        </ul>
-      </div> */}
     </div>
   );
 };

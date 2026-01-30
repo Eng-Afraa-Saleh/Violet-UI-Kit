@@ -471,8 +471,7 @@ export interface KanbanBoardProps {
 }
 
 //---Backgrounds---
-// في ملف types.ts - إضافة هذه الأنواع
-export type BackgroundPattern = 
+ export type BackgroundPattern = 
   | 'gradient' 
   | 'grid' 
   | 'dots' 
