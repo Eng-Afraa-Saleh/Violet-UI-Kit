@@ -469,3 +469,77 @@ export interface KanbanBoardProps {
   onColumnDelete?: (columnId: string) => void;
   className?: string;
 }
+
+//---Backgrounds---
+// في ملف types.ts - إضافة هذه الأنواع
+export type BackgroundPattern = 
+  | 'gradient' 
+  | 'grid' 
+  | 'dots' 
+  | 'lines' 
+  | 'waves' 
+  | 'circuit' 
+  | 'topography' 
+  | 'stars' 
+  | 'bubbles' 
+  | 'hexagon' 
+  | 'noise' 
+  | 'abstract';
+
+export type GradientType = 
+  | 'linear' 
+  | 'radial' 
+  | 'conic' 
+  | 'mesh';
+
+export interface GradientStop {
+  color: string;
+  position: number;
+}
+
+export interface GradientConfig {
+  type: GradientType;
+  stops: GradientStop[];
+  angle?: number;
+  size?: number;
+}
+
+export interface BackgroundConfig {
+  id: string | number;
+  name: string;
+  description?: string;
+  pattern: BackgroundPattern;
+  gradient?: GradientConfig;
+  colors: string[];
+  animated?: boolean;
+  animationSpeed?: number;
+  blur?: number;
+  opacity?: number;
+  className?: string;
+}
+
+export interface BackgroundPreviewProps {
+  config: BackgroundConfig;
+  size?: 'sm' | 'md' | 'lg';
+  interactive?: boolean;
+  className?: string;
+  onSelect?: (config: BackgroundConfig) => void;
+}
+
+export interface BackgroundsGalleryProps {
+  backgrounds: BackgroundConfig[];
+  columns?: 2 | 3 | 4 | 5 | 6;
+  size?: 'sm' | 'md' | 'lg';
+  interactive?: boolean;
+  showLabels?: boolean;
+  className?: string;
+  onBackgroundSelect?: (config: BackgroundConfig) => void;
+  onBackgroundCopy?: (config: BackgroundConfig) => void;
+}
+
+export interface BackgroundGeneratorProps {
+  defaultConfig?: Partial<BackgroundConfig>;
+  onConfigChange?: (config: BackgroundConfig) => void;
+  showControls?: boolean;
+  className?: string;
+}

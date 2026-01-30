@@ -13,10 +13,11 @@ import {
   SlidersIcon,
   ImageIcon,
   Search,
-  FolderKanban
+  FolderKanban,
+  PanelTopIcon
 } from 'lucide-react';
 import { Switch } from './components/ui/Form';
- import { cn } from './utils';
+import { cn } from './utils';
 import IntroView from './views/IntroView';
 import ButtonsView from './views/ButtonsView';
 import InputsView from './views/InputsView';
@@ -30,40 +31,42 @@ import DashboardTemplate from './views/DashboardTemplate';
 import DataTableView from './views/DataTableView';
 import TimelineView from './views/TimelineView';
 import TabsView from './views/TabsView';
- import SliderView from './views/SliderView';
+import SliderView from './views/SliderView';
 import ImageGalleryView from './views/ImageGalleryView';
 import { Input } from './components/ui/Core';
 import KanbanBoardView from './views/KanbanBoardView';
 import StatsView from './views/StatsView';
- 
+import BackgroundsView from './views/BackgroundsView';
+
 // --- Types ---
 type View = 'intro' | 'buttons' | 'inputs' | 'layout' | 'feedback' |
   'forms' | 'template' | 'creative-cards' | 'navigation' | 'chatbot' |
-  'data-table' | 'time-line' | 'tabs' | 'stats' | 'slider' | 'image-gallery'|'kanban-board';
+  'data-table' | 'time-line' | 'tabs' | 'stats' | 'slider' | 'image-gallery'|'kanban-board'|'back-ground';
 
 // --- Sidebar ---
 const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme }: any) => {
   const [searchQuery, setSearchQuery] = useState('');
   
   const menuItems = [
-    { id: 'intro', label: 'Introduction', icon: <Terminal size={18} />, category: "" },
-    { id: 'buttons', label: 'Buttons', icon: <MousePointer2 size={18} />, category: "General" },
-    { id: 'inputs', label: 'Inputs & Data', icon: <Type size={18} />, category: "General" },
-    { id: 'forms', label: 'Form Elements', icon: <FormInput size={18} />, category: "General" },
-    { id: 'feedback', label: 'Feedback', icon: <MessageSquare size={18} />, category: "Feedback" },
-    { id: 'layout', label: 'Layout', icon: <Layout size={18} />, category: "General" },
-    { id: 'navigation', label: 'Navigation', icon: <NavIcon size={18} />, category: "Navigation" },
-    { id: 'creative-cards', label: 'Creative Cards', icon: <Palette size={18} />, category: "Data Display" },
-    { id: 'chatbot', label: 'AI ChatBot', icon: <MessageSquare size={18} />, category: "Templates" },
-    { id: 'template', label: 'Dashboard Template', icon: <LayoutTemplate size={18} />, category: "Templates" },
-    { id: 'data-table', label: 'Data Table', icon: <Table2Icon size={18} />, category: "Data Display" },
-    { id: 'time-line', label: 'Time Line', icon: <TimerResetIcon size={18} />, category: "Data Display" },
-    { id: 'tabs', label: 'Tabs', icon: <Layout size={18} />, category: "Navigation" },
-   { id: 'stats', label: 'Stats', icon: <Layout size={18} />, category: "Data Display" },
-    { id: 'slider', label: 'Slider', icon: <SlidersIcon size={18} />, category: "Data Display" },
-    { id: 'image-gallery', label: 'Image Gallery', icon: <ImageIcon size={18} />, category: "Data Display" },
+    { id: 'intro', label: 'Introduction', icon: <Terminal size={18} />, category: "", isNew: false },
+    { id: 'buttons', label: 'Buttons', icon: <MousePointer2 size={18} />, category: "General", isNew: false },
+    { id: 'inputs', label: 'Inputs & Data', icon: <Type size={18} />, category: "General", isNew: false },
+    { id: 'forms', label: 'Form Elements', icon: <FormInput size={18} />, category: "General", isNew: false },
+    { id: 'feedback', label: 'Feedback', icon: <MessageSquare size={18} />, category: "Feedback", isNew: false },
+    { id: 'layout', label: 'Layout', icon: <Layout size={18} />, category: "General", isNew: false },
+    { id: 'navigation', label: 'Navigation', icon: <NavIcon size={18} />, category: "Navigation", isNew: false },
+    { id: 'creative-cards', label: 'Creative Cards', icon: <Palette size={18} />, category: "Data Display", isNew: false },
+    { id: 'chatbot', label: 'AI ChatBot', icon: <MessageSquare size={18} />, category: "Templates", isNew: true },
+    { id: 'template', label: 'Dashboard Template', icon: <LayoutTemplate size={18} />, category: "Templates", isNew: false },
+    { id: 'data-table', label: 'Data Table', icon: <Table2Icon size={18} />, category: "Data Display", isNew: false },
+    { id: 'time-line', label: 'Time Line', icon: <TimerResetIcon size={18} />, category: "Data Display", isNew: false },
+    { id: 'tabs', label: 'Tabs', icon: <Layout size={18} />, category: "Navigation", isNew: true }, 
+    { id: 'stats', label: 'Stats', icon: <Layout size={18} />, category: "Data Display", isNew: true },
+    { id: 'slider', label: 'Slider', icon: <SlidersIcon size={18} />, category: "Data Display", isNew: false },
+    { id: 'image-gallery', label: 'Image Gallery', icon: <ImageIcon size={18} />, category: "Data Display", isNew: false },
+    { id: 'kanban-board', label: 'Kanban Board', icon: <FolderKanban size={18} />, category: "Data Display", isNew: true }, 
+    { id: 'back-ground', label: 'BackGround', icon: <PanelTopIcon size={18} />, category: "General", isNew: true }, 
 
-    { id: 'kanban-board', label: 'Kanban Board', icon: <FolderKanban size={18} />, category: "Data Display" },
   ];
 
   const filteredItems = useMemo(() => {
@@ -126,14 +129,21 @@ const Sidebar = ({ currentView, setView, isOpen, setIsOpen, isDark, toggleTheme 
                       key={item.id}
                       onClick={() => { setView(item.id); setIsOpen(false); }}
                       className={cn(
-                        "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                        "flex w-full items-center justify-between gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors group",
                         currentView === item.id
                           ? "bg-primary-50 text-primary-700 dark:bg-primary-900/20 dark:text-primary-300"
                           : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-900"
                       )}
                     >
-                      {item.icon}
-                      {item.label}
+                      <div className="flex items-center gap-3">
+                        {item.icon}
+                        {item.label}
+                      </div>
+                      {item.isNew && (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 animate-pulse">
+                          New
+                        </span>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -178,11 +188,11 @@ export default function App() {
       case 'data-table': return <DataTableView />;
       case 'time-line': return <TimelineView />;
       case 'tabs': return <TabsView />;
-       case 'stats': return <StatsView />;
-      case 'slider': return < SliderView />;
+      case 'stats': return <StatsView />;
+      case 'slider': return <SliderView />;
       case 'image-gallery': return <ImageGalleryView />;
-      case 'kanban-board' : return <KanbanBoardView/>;
-
+      case 'kanban-board' : return <KanbanBoardView />;
+      case 'back-ground' : return <BackgroundsView />;
       default: return <IntroView />;
     }
   };
@@ -220,3 +230,4 @@ export default function App() {
     </div>
   );
 }
+ 

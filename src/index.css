@@ -1,49 +1,208 @@
- 
-     @import "tailwindcss";
-     body {
-        font-family: 'Inter', sans-serif;
-      }
-      /* Custom scrollbar for better aesthetics */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-      }
-      .dark ::-webkit-scrollbar-thumb {
-        background: #475569;
-      }
-      .dark ::-webkit-scrollbar-thumb:hover {
-        background: #64748b;
-      }
-   
-      @keyframes float {
-        0%, 100% { transform: translateY(0) translateX(0); }
-        25% { transform: translateY(-20px) translateX(10px); }
-        50% { transform: translateY(-10px) translateX(-10px); }
-        75% { transform: translateY(-30px) translateX(5px); }
-      }
-      
-      @keyframes gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-      
-      .animate-float {
-        animation: float linear infinite;
-      }
-      
-      .animate-gradient {
-        background-size: 200% 200%;
-        animation: gradient 3s ease infinite;
-      }
-    
+ @import "tailwindcss";
+
+ body {
+   font-family: 'Inter', sans-serif;
+ }
+
+ /* Custom scrollbar for better aesthetics */
+ ::-webkit-scrollbar {
+   width: 8px;
+   height: 8px;
+ }
+
+ ::-webkit-scrollbar-track {
+   background: transparent;
+ }
+
+ ::-webkit-scrollbar-thumb {
+   background: #cbd5e1;
+   border-radius: 4px;
+ }
+
+ ::-webkit-scrollbar-thumb:hover {
+   background: #94a3b8;
+ }
+
+ .dark ::-webkit-scrollbar-thumb {
+   background: #475569;
+ }
+
+ .dark ::-webkit-scrollbar-thumb:hover {
+   background: #64748b;
+ }
+
+ @keyframes float {
+
+   0%,
+   100% {
+     transform: translateY(0) translateX(0);
+   }
+
+   25% {
+     transform: translateY(-20px) translateX(10px);
+   }
+
+   50% {
+     transform: translateY(-10px) translateX(-10px);
+   }
+
+   75% {
+     transform: translateY(-30px) translateX(5px);
+   }
+ }
+
+ @keyframes gradient {
+   0% {
+     background-position: 0% 50%;
+   }
+
+   50% {
+     background-position: 100% 50%;
+   }
+
+   100% {
+     background-position: 0% 50%;
+   }
+ }
+
+ .animate-float {
+   animation: float linear infinite;
+ }
+
+ .animate-gradient {
+   background-size: 200% 200%;
+   animation: gradient 3s ease infinite;
+ }
+
+ /* Background animations */
+ @keyframes float {
+   0% {
+     transform: translateY(100%) translateX(0) rotate(0deg);
+     opacity: 0;
+   }
+
+   10% {
+     opacity: 0.5;
+   }
+
+   90% {
+     opacity: 0.5;
+   }
+
+   100% {
+     transform: translateY(-100%) translateX(100px) rotate(360deg);
+     opacity: 0;
+   }
+ }
+
+ @keyframes twinkle {
+
+   0%,
+   100% {
+     opacity: 0.2;
+   }
+
+   50% {
+     opacity: 1;
+   }
+ }
+
+ @keyframes backgroundAnimation {
+   0% {
+     background-position: 0% 0%;
+   }
+
+   100% {
+     background-position: 100% 100%;
+   }
+ }
+
+ /* Circuit board pattern */
+ .circuit-pattern {
+   background-image:
+     linear-gradient(90deg, currentColor 1px, transparent 1px),
+     linear-gradient(currentColor 1px, transparent 1px),
+     linear-gradient(90deg, currentColor 1px, transparent 1px),
+     linear-gradient(currentColor 1px, transparent 1px);
+   background-size: 30px 30px, 30px 30px, 150px 150px, 150px 150px;
+ }
+
+ /* Topography pattern */
+ .topography-pattern {
+   background-image:
+     radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0);
+   background-size: 40px 40px;
+ }
+
+ /* Noise pattern */
+ .noise-pattern {
+   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+ }
+
+
+
+ @keyframes backgroundAnimation {
+   0% {
+     background-position: 0% 0%;
+   }
+
+   100% {
+     background-position: 100% 100%;
+   }
+ }
+
+ @keyframes twinkle {
+
+   0%,
+   100% {
+     opacity: 0.2;
+   }
+
+   50% {
+     opacity: 1;
+   }
+
+ }
+
+
+ @keyframes backgroundAnimation {
+   0% {
+     background-position: 0% 0%;
+   }
+
+   100% {
+     background-position: 100% 100%;
+   }
+ }
+
+ @keyframes twinkle {
+
+   0%,
+   100% {
+     opacity: 0.2;
+   }
+
+   50% {
+     opacity: 1;
+   }
+ }
+
+ @keyframes float {
+   0% {
+     transform: translateY(100%) translateX(0) rotate(0deg);
+     opacity: 0;
+   }
+
+   10% {
+     opacity: 0.5;
+   }
+
+   90% {
+     opacity: 0.5;
+   }
+
+   100% {
+     transform: translateY(-100%) translateX(100px) rotate(360deg);
+     opacity: 0;
+   }
+ }
