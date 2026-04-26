@@ -15,8 +15,7 @@
 ## 🌐 Live Demo
 
 The project is successfully deployed and live via GitHub Pages!  
-🔗 **[Click here to view the Live Preview](https://[YOUR-GITHUB-USERNAME].github.io/VioletLybrary)** *(Note: Replace the link with your actual GitHub Pages URL)*
-
+🔗 **[Click here to view the Live Preview](https://eng-afraa-saleh.github.io/Violet-UI-Kit/)** 
 ---
 
 ## ✨ Core Features
