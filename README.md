@@ -47,22 +47,26 @@ To get a local copy up and running, follow these simple steps:
 1. **Clone the repository:**
    ```bash
    git clone git@github.com:Eng-Afraa-Saleh/Violet-UI-Kit.git
-   
- Navigate into the project directory:
+   ```
+ 2. **Navigate into the project directory:**
+   ```bash
  cd VioletLybrary
- 
- nstall the dependencies:
- npm install
+ ```
+ 3. **nstall the dependencies:**
+  ```bash
+npm install
 # or
 yarn install
-
-Start the development server:
+```
+4. **Start the development server:**
+ ```bash
 npm run dev
 # or
 yarn dev
-
-📂 Project Architecture
-The codebase is structured to promote maintainability and separation of concerns:
+```
+# 📂 Project Architecture
+**The codebase is structured to promote maintainability and separation of concerns:**
+ ```text
 
 VioletLybrary/
 ├── src/
@@ -78,3 +82,4 @@ VioletLybrary/
 ├── vite.config.ts       # Vite configuration
 ├── tailwind.config.js   # Tailwind CSS theme and utility configuration
 └── eslint.config.js     # Code quality and linting rules
+```
